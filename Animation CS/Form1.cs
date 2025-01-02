@@ -1,4 +1,4 @@
-﻿// Animation
+﻿// Animation C#
 
 // Animation is the art of creating the illusion of motion by displaying a series
 // of static images in quick succession. In our app, we use animation to make it
@@ -27,6 +27,8 @@
 // LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or OTHERWISE, ARISING FROM,
 // OUT OF Or IN CONNECTION WITH THE SOFTWARE Or THE USE Or OTHER DEALINGS IN THE
 // SOFTWARE.
+
+// https://github.com/JoeLumbley/Animation-CS
 
 using System.Diagnostics;
 
