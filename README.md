@@ -12,17 +12,10 @@ In this app, you'll learn how to manage timing, handle graphics rendering, and i
 
 # Code Walkthrough
 
-Welcome to the Animation in C# tutorial! In this lesson, we'll walk through a C# code example that demonstrates how to create a simple animation of a rectangle moving across the screen. We'll break down the code line by line to ensure a clear understanding. Let's get started!
-
-## Overview
-
 Animation is the art of creating the illusion of motion by displaying a series of static images in quick succession. In our app, we animate a rectangle moving to the right. The animation is designed to be frame-independent, meaning it will run smoothly regardless of the device's frame rate.
 
-## License
 
-This project is licensed under the MIT License. You can use, copy, modify, and distribute this software freely, as long as you include the copyright notice.
 
-## Code Breakdown
 
 ### Using Directives and Namespace
 
@@ -64,23 +57,38 @@ private Size MinimumMaxBufferSize = new (1280, 720);
 ### Rectangle Structure
 
 ```csharp
-public struct RectangleDouble
-{
-    public double X, Y, Width, Height;
+        public struct RectangleDouble
+        {
+            public double X, Y, Width, Height;
 
-    public RectangleDouble(double x, double y, double width, double height)
-    {
-        X = x;
-        Y = y;
-        Width = width;
-        Height = height;
-    }
+            public RectangleDouble(double x, double y, double width, double height)
+            {
+                X = x;
+                Y = y;
+                Width = width;
+                Height = height;
+            }
 
-    public int GetNearestX() { ... }
-    public int GetNearestY() { ... }
-    public int GetNearestWidth() { ... }
-    public int GetNearestHeight() { ... }
-}
+            // Methods to round attributes to
+            // the nearest integer values.
+            public int GetNearestX()
+            {
+                return (int)Math.Round(X);
+            }
+            public int GetNearestY()
+            {
+                return (int)Math.Round(Y);
+            }
+            public int GetNearestWidth()
+            {
+                return (int)Math.Round(Width);
+            }
+            public int GetNearestHeight()
+            {
+                return (int)Math.Round(Height);
+            }
+        }
+
 ```
 
 - **`RectangleDouble`**: This structure represents a rectangle with double-precision coordinates and dimensions.
@@ -98,17 +106,19 @@ private RectangleDouble rectangle = new RectangleDouble(0, 0, 256, 256);
 ### Delta Time Structure
 
 ```csharp
-private struct DeltaTimeStructure
-{
-    public DateTime CurrentFrame;
-    public DateTime LastFrame;
-    public TimeSpan ElapsedTime;
+ private struct DeltaTimeStructure
+ {
+     public DateTime CurrentFrame;
+     public DateTime LastFrame;
+     public TimeSpan ElapsedTime;
 
-    public DeltaTimeStructure(DateTime currentFrame, DateTime lastFrame, TimeSpan elapsedTime)
-    {
-        ...
-    }
-}
+     public DeltaTimeStructure(DateTime currentFrame, DateTime lastFrame, TimeSpan elapsedTime)
+     {
+         CurrentFrame = currentFrame;
+         LastFrame = lastFrame;
+         ElapsedTime = elapsedTime;
+     }
+ }
 ```
 
 - **`DeltaTimeStructure`**: This structure keeps track of the time between frames, which is crucial for smooth animations.
@@ -124,17 +134,20 @@ private double velocity = 64.0;
 ### Display Structure
 
 ```csharp
-private struct DisplayStructure
-{
-    public Point Location;
-    public string Text;
-    public Font Font;
+        private struct DisplayStructure
+        {
+            public Point Location;
+            public string Text;
+            public Font Font;
 
-    public DisplayStructure(Point location, string text, Font font)
-    {
-        ...
-    }
-}
+            public DisplayStructure(Point location, string text, Font font)
+            {
+                Location = location;
+                Text = text;
+                Font = font;
+            }
+        }
+
 ```
 
 - **`DisplayStructure`**: This structure is used to display text (like FPS) on the screen.
@@ -142,18 +155,22 @@ private struct DisplayStructure
 ### Frame Counter Structure
 
 ```csharp
-private struct FrameCounterStructure
-{
-    public int FrameCount;
-    public DateTime StartTime;
-    public TimeSpan TimeElapsed;
-    public double SecondsElapsed;
+        private struct FrameCounterStructure
+        {
+            public int FrameCount;
+            public DateTime StartTime;
+            public TimeSpan TimeElapsed;
+            public double SecondsElapsed;
 
-    public FrameCounterStructure(int frameCount, DateTime startTime, TimeSpan timeElapsed, double secondsElapsed)
-    {
-        ...
-    }
-}
+            public FrameCounterStructure(int frameCount, DateTime startTime, TimeSpan timeElapsed, double secondsElapsed)
+            {
+                FrameCount = frameCount;
+                StartTime = startTime;
+                TimeElapsed = timeElapsed;
+                SecondsElapsed = secondsElapsed;
+            }
+        }
+
 ```
 
 - **`FrameCounterStructure`**: This structure keeps track of the number of frames rendered and the elapsed time.
@@ -324,6 +341,10 @@ This code provides a solid foundation for understanding basic animation concepts
 ## Repository
 
 For the complete code and additional resources, visit [Joe Lumbley's Animation C# GitHub Repository](https://github.com/JoeLumbley/Animation-CS).
+
+## License
+
+This project is licensed under the MIT License. You can use, copy, modify, and distribute this software freely, as long as you include the copyright notice.
 
 
 
