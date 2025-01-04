@@ -334,19 +334,19 @@ private void InitializeApp()
 
 - **`InitializeApp`**: This method initializes the form and starts the timer.
 
-### Final Thoughts
+
 
 This code provides a solid foundation for understanding basic animation concepts in C#. By following the structure and logic laid out in this tutorial, you can create your own animations and explore further enhancements. Happy coding!
 
-## Repository
 
-For the complete code and additional resources, visit [Joe Lumbley's Animation C# GitHub Repository](https://github.com/JoeLumbley/Animation-CS).
 
 ## License
 
 This project is licensed under the MIT License. You can use, copy, modify, and distribute this software freely, as long as you include the copyright notice.
 
+## Repository
 
+For the complete code and additional resources, visit [Joe Lumbley's Animation C# GitHub Repository](https://github.com/JoeLumbley/Animation-CS).
 
 
 
