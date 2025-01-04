@@ -132,12 +132,6 @@ namespace Animation_CS
 
         private FrameCounterStructure frameCounter = new(0, DateTime.Now, TimeSpan.Zero, 0);
 
-        //private readonly StringFormat alignCenter = new StringFormat() 
-        //{ Alignment = StringAlignment.Center };
-
-        //private readonly StringFormat alignCenterMiddle = new StringFormat() 
-        //{ Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
-
         private void Form1_Load(object sender, EventArgs e)
         {
             InitializeApp();
