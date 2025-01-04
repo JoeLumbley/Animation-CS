@@ -76,7 +76,7 @@ namespace Animation_CS
             }
         }
 
-        private RectangleDouble rectangle = new RectangleDouble(0, 0, 256, 256);
+        private RectangleDouble rectangle = new(0, 0, 256, 256);
 
         // The DeltaTimeStructure represents the time difference
         // between two frames.
