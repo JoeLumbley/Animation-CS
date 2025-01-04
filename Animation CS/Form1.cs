@@ -58,19 +58,19 @@ namespace Animation_CS
 
             // Methods to round attributes to
             // the nearest integer values.
-            public int GetNearestX()
+            public readonly int GetNearestX()
             {
                 return (int)Math.Round(X);
             }
-            public int GetNearestY()
+            public readonly int GetNearestY()
             {
                 return (int)Math.Round(Y);
             }
-            public int GetNearestWidth()
+            public readonly int GetNearestWidth()
             {
                 return (int)Math.Round(Width);
             }
-            public int GetNearestHeight()
+            public readonly int GetNearestHeight()
             {
                 return (int)Math.Round(Height);
             }
