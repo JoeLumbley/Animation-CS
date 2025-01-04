@@ -94,7 +94,7 @@ namespace Animation_CS
             }
         }
 
-        private DeltaTimeStructure deltaTime = new DeltaTimeStructure(DateTime.Now, DateTime.Now, TimeSpan.Zero);
+        private DeltaTimeStructure deltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
 
         private readonly double velocity = 64.0;
 
@@ -112,7 +112,7 @@ namespace Animation_CS
             }
         }
 
-        private DisplayStructure fpsDisplay = new DisplayStructure(new Point(0, 0), "--", new Font("Segoe UI", 25));
+        private DisplayStructure fpsDisplay = new(new Point(0, 0), "--", new Font("Segoe UI", 25));
 
         private struct FrameCounterStructure
         {
@@ -130,7 +130,7 @@ namespace Animation_CS
             }
         }
 
-        private FrameCounterStructure frameCounter = new FrameCounterStructure(0, DateTime.Now, TimeSpan.Zero, 0);
+        private FrameCounterStructure frameCounter = new(0, DateTime.Now, TimeSpan.Zero, 0);
 
         private readonly StringFormat alignCenter = new StringFormat() 
         { Alignment = StringAlignment.Center };
