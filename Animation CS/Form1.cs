@@ -132,11 +132,11 @@ namespace Animation_CS
 
         private FrameCounterStructure frameCounter = new(0, DateTime.Now, TimeSpan.Zero, 0);
 
-        private readonly StringFormat alignCenter = new StringFormat() 
-        { Alignment = StringAlignment.Center };
+        //private readonly StringFormat alignCenter = new StringFormat() 
+        //{ Alignment = StringAlignment.Center };
 
-        private readonly StringFormat alignCenterMiddle = new StringFormat() 
-        { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        //private readonly StringFormat alignCenterMiddle = new StringFormat() 
+        //{ Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -270,7 +270,7 @@ namespace Animation_CS
         {
             buffer?.Graphics.Clear(Color.Black);
             
-            buffer?.Graphics.FillRectangle(Brushes.Purple,
+            buffer?.Graphics.FillRectangle(Brushes.Lime,
                                            rectangle.GetNearestX(), 
                                            rectangle.GetNearestY(), 
                                            rectangle.GetNearestWidth(), 
@@ -279,7 +279,7 @@ namespace Animation_CS
             // Draw frames per second display.
             buffer?.Graphics.DrawString(fpsDisplay.Text + " FPS",
                                         fpsDisplay.Font,
-                                        Brushes.MediumOrchid,
+                                        Brushes.PaleGreen,
                                         fpsDisplay.Location);
 
         }
@@ -356,7 +356,8 @@ namespace Animation_CS
         private void ResizeFPS()
         {
             // Place the FPS display at the bottom of the client area.
-            fpsDisplay.Location = new Point(fpsDisplay.Location.X, ClientRectangle.Bottom - 75);
+            fpsDisplay.Location = new Point(fpsDisplay.Location.X,
+                                            ClientRectangle.Bottom - 75);
 
         }
 
@@ -369,7 +370,7 @@ namespace Animation_CS
             // Set context to the context of this app.
             context = BufferedGraphicsManager.Current;
 
-            // Ensure that Screen.PrimaryScreen and Screen.PrimaryScreen.WorkingArea are not null 
+            // Ensure that Screen.PrimaryScreen is not null.
             if (Screen.PrimaryScreen != null)
             {
                 // Set buffer size to the primary working area.
@@ -380,7 +381,6 @@ namespace Animation_CS
                 // Set to MinimumMaxBufferSize if PrimaryScreen is null
                 context.MaximumBuffer = MinimumMaxBufferSize;
 
-                // Handle the case where PrimaryScreen is null
                 Debug.Print($"Primary screen not detected.");
             }
             buffer = context.Allocate(CreateGraphics(), ClientRectangle);
