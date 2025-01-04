@@ -96,7 +96,7 @@ namespace Animation_CS
 
         private DeltaTimeStructure deltaTime = new DeltaTimeStructure(DateTime.Now, DateTime.Now, TimeSpan.Zero);
 
-        private double velocity = 64.0;
+        private readonly double velocity = 64.0;
 
         private struct DisplayStructure
         {
