@@ -270,7 +270,7 @@ namespace Animation_CS
         {
             buffer?.Graphics.Clear(Color.Black);
             
-            buffer?.Graphics.FillRectangle(Brushes.Lime,
+            buffer?.Graphics.FillRectangle(Brushes.Chartreuse,
                                            rectangle.GetNearestX(), 
                                            rectangle.GetNearestY(), 
                                            rectangle.GetNearestWidth(), 
@@ -279,7 +279,7 @@ namespace Animation_CS
             // Draw frames per second display.
             buffer?.Graphics.DrawString(fpsDisplay.Text + " FPS",
                                         fpsDisplay.Font,
-                                        Brushes.PaleGreen,
+                                        Brushes.MediumSpringGreen,
                                         fpsDisplay.Location);
 
         }
