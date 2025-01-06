@@ -36,9 +36,9 @@ namespace Animation_CS
 {
     public partial class Form1 : Form
     {
-        private BufferedGraphicsContext context = new();
+        private BufferedGraphicsContext Context = new();
 
-        private BufferedGraphics? buffer;
+        private BufferedGraphics? Buffer;
         
         private Size MinimumMaxBufferSize = new (1280, 720);
 
@@ -76,7 +76,7 @@ namespace Animation_CS
             }
         }
 
-        private RectangleDouble rectangle = new(0, 0, 256, 256);
+        private RectangleDouble Rectangle = new(0, 0, 256, 256);
 
         // The DeltaTimeStructure represents the time difference
         // between two frames.
@@ -94,9 +94,9 @@ namespace Animation_CS
             }
         }
 
-        private DeltaTimeStructure deltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
+        private DeltaTimeStructure DeltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
 
-        private readonly double velocity = 64.0;
+        private readonly double Velocity = 64.0;
 
         private struct DisplayStructure
         {
@@ -112,7 +112,7 @@ namespace Animation_CS
             }
         }
 
-        private DisplayStructure fpsDisplay = new(new Point(0, 0), "--", new Font("Segoe UI", 25));
+        private DisplayStructure FpsDisplay = new(new Point(0, 0), "--", new Font("Segoe UI", 25));
 
         private struct FrameCounterStructure
         {
@@ -130,7 +130,7 @@ namespace Animation_CS
             }
         }
 
-        private FrameCounterStructure frameCounter = new(0, DateTime.Now, TimeSpan.Zero, 0);
+        private FrameCounterStructure FrameCounter = new(0, DateTime.Now, TimeSpan.Zero, 0);
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -173,7 +173,7 @@ namespace Animation_CS
             DrawFrame();
 
             // Show buffer on form.
-            buffer?.Render(e.Graphics);
+            Buffer?.Render(e.Graphics);
 
             UpdateFrameCounter();
 
@@ -199,30 +199,30 @@ namespace Animation_CS
         {   // Delta time ( Δt ) is the elapsed time since the last frame.
 
             // Set the current frame's time to the current system time.
-            deltaTime.CurrentFrame = DateTime.Now;
+            DeltaTime.CurrentFrame = DateTime.Now;
 
             // Calculates the elapsed time ( delta time Δt ) between the current frame
             // and the last frame.
-            deltaTime.ElapsedTime = deltaTime.CurrentFrame - deltaTime.LastFrame;
+            DeltaTime.ElapsedTime = DeltaTime.CurrentFrame - DeltaTime.LastFrame;
 
             // Updates the last frame's time to the current frame's time for use in
             // the next update.
-            deltaTime.LastFrame = deltaTime.CurrentFrame;
+            DeltaTime.LastFrame = DeltaTime.CurrentFrame;
 
         }
 
         private void MoveRectangle()
         {
             // Move the rectangle to the right.
-            rectangle.X += velocity * deltaTime.ElapsedTime.TotalSeconds;
+            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
             // Displacement = Velocity x Delta Time ( Δs = V * Δt )
 
             // Wraparound
             // When the rectangle exits the right side of the client area.
-            if (rectangle.X > ClientRectangle.Right)
+            if (Rectangle.X > ClientRectangle.Right)
             {
                 // The rectangle reappears on the left side the client area.
-                rectangle.X = ClientRectangle.Left - rectangle.Width;
+                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
 
             }
 
@@ -230,15 +230,15 @@ namespace Animation_CS
 
         private void InitializeBuffer()
         {
-            context = BufferedGraphicsManager.Current;
+            Context = BufferedGraphicsManager.Current;
 
             if (Screen.PrimaryScreen != null)
             {
-                context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
+                Context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
             }
             else
             {
-                context.MaximumBuffer = MinimumMaxBufferSize;
+                Context.MaximumBuffer = MinimumMaxBufferSize;
 
                 Debug.Print($"Primary screen not detected.");
 
@@ -250,11 +250,11 @@ namespace Animation_CS
 
         private void AllocateBuffer()
         {
-            if (buffer == null)
+            if (Buffer == null)
             {
-                buffer = context.Allocate(CreateGraphics(), ClientRectangle);
-                buffer.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-                buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                Buffer = Context.Allocate(CreateGraphics(), ClientRectangle);
+                Buffer.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+                Buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
             }
 
@@ -262,29 +262,29 @@ namespace Animation_CS
 
         private void DrawFrame()
         {
-            buffer?.Graphics.Clear(Color.Black);
+            Buffer?.Graphics.Clear(Color.Black);
             
-            buffer?.Graphics.FillRectangle(Brushes.Chartreuse,
-                                           rectangle.GetNearestX(), 
-                                           rectangle.GetNearestY(), 
-                                           rectangle.GetNearestWidth(), 
-                                           rectangle.GetNearestHeight());
+            Buffer?.Graphics.FillRectangle(Brushes.Chartreuse,
+                                           Rectangle.GetNearestX(), 
+                                           Rectangle.GetNearestY(), 
+                                           Rectangle.GetNearestWidth(), 
+                                           Rectangle.GetNearestHeight());
             
             // Draw frames per second display.
-            buffer?.Graphics.DrawString(fpsDisplay.Text + " FPS",
-                                        fpsDisplay.Font,
+            Buffer?.Graphics.DrawString(FpsDisplay.Text + " FPS",
+                                        FpsDisplay.Font,
                                         Brushes.MediumSpringGreen,
-                                        fpsDisplay.Location);
+                                        FpsDisplay.Location);
 
         }
 
         private void DisposeBuffer()
         {
-            if (buffer != null)
+            if (Buffer != null)
             {
-                buffer.Dispose();
+                Buffer.Dispose();
 
-                buffer = null; // Set to null to avoid using a disposed object
+                Buffer = null; // Set to null to avoid using a disposed object
 
                 // The buffer will be reallocated in OnPaint
 
@@ -298,9 +298,9 @@ namespace Animation_CS
 
             // InitializeBuffer();
 
-            timer1.Interval = 10;
+            Timer1.Interval = 10;
 
-            timer1.Start();
+            Timer1.Start();
 
         }
 
@@ -320,21 +320,21 @@ namespace Animation_CS
 
         private void UpdateFrameCounter()
         {
-            frameCounter.TimeElapsed = DateTime.Now - frameCounter.StartTime;
+            FrameCounter.TimeElapsed = DateTime.Now - FrameCounter.StartTime;
 
-            frameCounter.SecondsElapsed = frameCounter.TimeElapsed.TotalSeconds;
+            FrameCounter.SecondsElapsed = FrameCounter.TimeElapsed.TotalSeconds;
 
-            if (frameCounter.SecondsElapsed < 1)
+            if (FrameCounter.SecondsElapsed < 1)
             {
-                frameCounter.FrameCount += 1;
+                FrameCounter.FrameCount += 1;
             }
             else
             {
-                fpsDisplay.Text = frameCounter.FrameCount.ToString();
+                FpsDisplay.Text = FrameCounter.FrameCount.ToString();
 
-                frameCounter.FrameCount = 0;
+                FrameCounter.FrameCount = 0;
 
-                frameCounter.StartTime = DateTime.Now;
+                FrameCounter.StartTime = DateTime.Now;
 
             }
 
@@ -343,14 +343,14 @@ namespace Animation_CS
         private void ResizeRectangle()
         {
             // Center our rectangle vertically in the client area of our form.
-            rectangle.Y = ClientRectangle.Height / 2 - rectangle.Height / 2;
+            Rectangle.Y = ClientRectangle.Height / 2 - Rectangle.Height / 2;
 
         }
 
         private void ResizeFPS()
         {
             // Place the FPS display at the bottom of the client area.
-            fpsDisplay.Location = new Point(fpsDisplay.Location.X,
+            FpsDisplay.Location = new Point(FpsDisplay.Location.X,
                                             ClientRectangle.Bottom - 75);
 
         }
@@ -362,24 +362,24 @@ namespace Animation_CS
             // Initialize Buffer //
 
             // Set context to the context of this app.
-            context = BufferedGraphicsManager.Current;
+            Context = BufferedGraphicsManager.Current;
 
             // Ensure that Screen.PrimaryScreen is not null.
             if (Screen.PrimaryScreen != null)
             {
                 // Set buffer size to the primary working area.
-                context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
+                Context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
             }
             else
             {
                 // Set to MinimumMaxBufferSize if PrimaryScreen is null
-                context.MaximumBuffer = MinimumMaxBufferSize;
+                Context.MaximumBuffer = MinimumMaxBufferSize;
 
                 Debug.Print($"Primary screen not detected.");
             }
-            buffer = context.Allocate(CreateGraphics(), ClientRectangle);
-            buffer.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-            buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            Buffer = Context.Allocate(CreateGraphics(), ClientRectangle);
+            Buffer.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+            Buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
         }
 
 

@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            timer1 = new System.Windows.Forms.Timer(components);
+            Timer1 = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
-            // timer1
+            // Timer1
             // 
-            timer1.Tick += timer1_Tick;
+            Timer1.Tick += timer1_Tick;
             // 
             // Form1
             // 
@@ -50,6 +50,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer1;
     }
 }
