@@ -30,7 +30,15 @@
 
 // https://github.com/JoeLumbley/Animation-CS
 
+
+
+using System.Drawing;
+
 using System.Diagnostics;
+
+
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace Animation_CS
 {
@@ -41,6 +49,14 @@ namespace Animation_CS
         private BufferedGraphics? Buffer;
         
         private Size MinimumMaxBufferSize = new (1280, 720);
+
+        private readonly Color BackgroundColor = Color.Black;
+
+        private readonly Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
+
+        private readonly Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
+
+        private readonly String FpsIdentifier = new(" FPS");
 
         // The RectangleDouble structure represents a rectangle with
         // double-precision coordinates and dimensions.
@@ -262,18 +278,18 @@ namespace Animation_CS
 
         private void DrawFrame()
         {
-            Buffer?.Graphics.Clear(Color.Black);
+            Buffer?.Graphics.Clear(BackgroundColor);
             
-            Buffer?.Graphics.FillRectangle(Brushes.Chartreuse,
+            Buffer?.Graphics.FillRectangle(RectangleBrush,
                                            Rectangle.GetNearestX(), 
                                            Rectangle.GetNearestY(), 
                                            Rectangle.GetNearestWidth(), 
                                            Rectangle.GetNearestHeight());
             
             // Draw frames per second display.
-            Buffer?.Graphics.DrawString(FpsDisplay.Text + " FPS",
+            Buffer?.Graphics.DrawString(FpsDisplay.Text,
                                         FpsDisplay.Font,
-                                        Brushes.MediumSpringGreen,
+                                        FpsDisplayBrush,
                                         FpsDisplay.Location);
 
         }
@@ -330,7 +346,7 @@ namespace Animation_CS
             }
             else
             {
-                FpsDisplay.Text = FrameCounter.FrameCount.ToString();
+                FpsDisplay.Text = $"{FrameCounter.FrameCount}{FpsIdentifier}";
 
                 FrameCounter.FrameCount = 0;
 
