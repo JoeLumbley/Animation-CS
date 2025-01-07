@@ -44,13 +44,13 @@ namespace Animation_CS
         
         private Size MinimumMaxBufferSize = new (1280, 720);
 
-        private readonly Color BackgroundColor = Color.Black;
+        private Color BackgroundColor = Color.Black;
 
         private Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
 
-        private readonly Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
+        private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
 
-        private readonly String FpsIdentifier = new(" FPS");
+        private String FpsIdentifier = new(" FPS");
 
         // The RectangleDouble structure represents a rectangle with
         // double-precision coordinates and dimensions.
@@ -395,9 +395,12 @@ namespace Animation_CS
 
 
 
+
     }
 
+
 }
+
 
 // Monica is our an AI assistant.
 // https://monica.im/
