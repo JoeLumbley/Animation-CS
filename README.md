@@ -3,7 +3,7 @@ This project showcases the fundamentals of creating smooth animations. The appli
 
 
 
-![008](https://github.com/user-attachments/assets/c95698ff-b6bf-4b9f-a4aa-19e9c1c9da48)
+![011](https://github.com/user-attachments/assets/98898424-0885-4a80-9638-46ac8619f0da)
 
 
 
