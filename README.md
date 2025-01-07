@@ -418,6 +418,10 @@ Congratulations! You've just completed a detailed walkthrough of the Animation C
 
 ---
 
+
+
+## Related Projects
+
 This project serves as a direct port of the original Animation project created in VB.NET, which you can also explore for a different perspective on the same concepts. For more information and to access the complete code, visit the [Animation Repository](https://github.com/JoeLumbley/Animation) and the [Animation C# Repository](https://github.com/JoeLumbley/Animation-CS). Happy coding!
 
 ![012](https://github.com/user-attachments/assets/4a5ed26f-6d66-4b92-b824-4745f6d51275)
