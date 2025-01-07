@@ -509,6 +509,72 @@ DeltaTime is a fundamental concept in game development and animation that allows
 ---
 
 
+Here are some exercises to enhance your understanding of the Animation C# project by modifying various parameters:
+
+### Exercises
+
+1. **Change the Rectangle's Color**
+   - **Task**: Modify the `RectangleBrush` variable to change the color of the rectangle.
+   - **Instructions**:
+     ```csharp
+     private readonly Brush RectangleBrush = new SolidBrush(Color.Red); // Change Color.Chartreuse to Color.Red
+     ```
+
+2. **Change the Rectangle's Size**
+   - **Task**: Adjust the dimensions of the rectangle by modifying the `Rectangle` instance.
+   - **Instructions**:
+     ```csharp
+     private RectangleDouble Rectangle = new(0, 0, 128, 128); // Change width and height to 128
+     ```
+
+3. **Change the Rectangle's Velocity**
+   - **Task**: Modify the `Velocity` variable to change how fast the rectangle moves across the screen.
+   - **Instructions**:
+     ```csharp
+     private readonly double Velocity = 100.0; // Change from 64.0 to 100.0 for faster movement
+     ```
+
+4. **Add a Random Color Change on Each Frame**
+   - **Task**: Implement functionality to change the rectangle's color randomly on each frame update.
+   - **Instructions**:
+     ```csharp
+     private void MoveRectangle()
+     {
+         Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
+         if (Rectangle.X > ClientRectangle.Right)
+         {
+             Rectangle.X = ClientRectangle.Left - Rectangle.Width;
+             // Change color randomly
+             Random rand = new Random();
+             RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
+         }
+     }
+     ```
+
+5. **Implement Rectangle Resizing on Key Press**
+   - **Task**: Allow the user to resize the rectangle using keyboard input (e.g., increase size with the Up arrow and decrease with the Down arrow).
+   - **Instructions**:
+     ```csharp
+     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+     {
+         if (keyData == Keys.Up)
+         {
+             Rectangle.Width += 10;
+             Rectangle.Height += 10;
+         }
+         else if (keyData == Keys.Down)
+         {
+             Rectangle.Width -= 10;
+             Rectangle.Height -= 10;
+         }
+         return base.ProcessCmdKey(ref msg, keyData);
+     }
+     ```
+
+### Conclusion
+These exercises will help you explore the flexibility of the Animation C# project and deepen your understanding of graphics programming in C#. Feel free to experiment with different values and see how they affect the animation!
+
+---
 
 ## Related Projects
 
