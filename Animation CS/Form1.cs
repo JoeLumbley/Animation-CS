@@ -46,7 +46,7 @@ namespace Animation_CS
 
         private readonly Color BackgroundColor = Color.Black;
 
-        private readonly Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
+        private Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
 
         private readonly Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
 
