@@ -534,7 +534,7 @@ Here are some exercises to enhance your understanding of the Animation C# projec
      private readonly double Velocity = 100.0; // Change from 64.0 to 100.0 for faster movement
      ```
 
-4. **Add a Random Color Change on Each Frame**
+4. **Add a Random Color Change on Wraparound**
    - **Task**: Implement functionality to change the rectangle's color randomly on each frame update.
    - **Instructions**:
      ```csharp
@@ -549,6 +549,26 @@ Here are some exercises to enhance your understanding of the Animation C# projec
              RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
          }
      }
+
+        private void MoveRectangle()
+        {
+            // Move the rectangle to the right.
+            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
+            // Displacement = Velocity x Delta Time ( Δs = V * Δt )
+
+            // Wraparound
+            // When the rectangle exits the right side of the client area.
+            if (Rectangle.X > ClientRectangle.Right)
+            {
+                // The rectangle reappears on the left side the client area.
+                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
+                // Change color randomly
+                Random rand = new Random();
+                RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
+            }
+
+        }
+
      ```
 
 5. **Implement Rectangle Resizing on Key Press**
