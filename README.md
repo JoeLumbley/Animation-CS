@@ -10,7 +10,7 @@ This project showcases the fundamentals of creating smooth animations. The appli
 In this app, you'll learn how to manage timing, handle graphics rendering, and implement basic animation principles. Whether you're a beginner looking to understand the basics of animation or an experienced developer seeking a refresher, this project provides a hands-on approach to mastering animation techniques.
 
 
-# Animation C# - Code Walkthrough
+# Animation C# Code Walkthrough
 
 Welcome to the Animation C# project! In this lesson, we will explore the code step by step, breaking down each part to understand how it works. This project demonstrates the fundamentals of creating smooth animations in a Windows Forms application using C#. By the end of this walkthrough, you will have a solid understanding of the code and the principles behind animation.
 
