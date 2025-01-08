@@ -56,14 +56,15 @@ namespace Animation_CS
         // double-precision coordinates and dimensions.
         public struct RectangleDouble
         {
-            public double X, Y, Width, Height;
+            public double X, Y, Width, Height, Velocity;
 
-            public RectangleDouble(double x, double y, double width, double height)
+            public RectangleDouble(double x, double y, double width, double height, double velocity)
             {
                 X = x;
                 Y = y;
                 Width = width;
                 Height = height;
+                Velocity = velocity;
             }
 
             // Methods to round attributes to
@@ -84,9 +85,38 @@ namespace Animation_CS
             {
                 return (int)Math.Round(Height);
             }
+
+            public void MoveRight(TimeSpan deltaTime)
+            {
+                // Move the rectangle to the right.
+                X += Velocity * deltaTime.TotalSeconds;
+                // Displacement = Velocity x Delta Time ( Δs = V * Δt )
+
+            }
+
+            public void Wraparound(Rectangle clientRectangle)
+            {
+                // When the rectangle exits the right side of the client area.
+                if (X > clientRectangle.Right)
+                {
+                    // The rectangle reappears on the left side the client area.
+                    X = clientRectangle.Left - Width;
+
+                }
+
+            }
+
+            public void MoveRightAndWraparound(Rectangle clientRectangle, TimeSpan deltaTime)
+            {
+                MoveRight(deltaTime);
+
+                Wraparound(clientRectangle);
+
+            }
+
         }
 
-        private RectangleDouble Rectangle = new(0, 0, 256, 256);
+        private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f);
 
         // The DeltaTimeStructure represents the time difference
         // between two frames.
@@ -122,7 +152,7 @@ namespace Animation_CS
 
         private DeltaTimeStructure DeltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
 
-        private double Velocity = 64.0;
+        //private double Velocity = 64.0;
 
         private struct DisplayStructure
         {
@@ -217,26 +247,28 @@ namespace Animation_CS
         {
             DeltaTime.Update();
 
-            MoveRectangle();
+            //MoveRectangle();
+
+            Rectangle.MoveRightAndWraparound(ClientRectangle,DeltaTime.ElapsedTime);
 
         }
 
-        private void MoveRectangle()
-        {
-            // Move the rectangle to the right.
-            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
-            // Displacement = Velocity x Delta Time ( Δs = V * Δt )
+        //private void MoveRectangle()
+        //{
+        //    // Move the rectangle to the right.
+        //    Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
+        //    // Displacement = Velocity x Delta Time ( Δs = V * Δt )
 
-            // Wraparound
-            // When the rectangle exits the right side of the client area.
-            if (Rectangle.X > ClientRectangle.Right)
-            {
-                // The rectangle reappears on the left side the client area.
-                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
+        //    // Wraparound
+        //    // When the rectangle exits the right side of the client area.
+        //    if (Rectangle.X > ClientRectangle.Right)
+        //    {
+        //        // The rectangle reappears on the left side the client area.
+        //        Rectangle.X = ClientRectangle.Left - Rectangle.Width;
 
-            }
+        //    }
 
-        }
+        //}
 
         private void InitializeBuffer()
         {
