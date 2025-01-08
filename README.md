@@ -18,7 +18,7 @@ Welcome to the Animation C# project! In this lesson, we will explore the code st
 Animation is the art of creating the illusion of motion by displaying a series of static images in quick succession. In our app, we animate a rectangle that moves to the right. To ensure smooth animation across different devices, we designed it to be **frame-independent**, meaning it runs consistently regardless of frame rate.
 
 
-## Code Breakdown
+## The Breakdown
 
 ### Importing Necessary Libraries
 
