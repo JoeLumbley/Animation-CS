@@ -9,18 +9,14 @@ This project showcases the fundamentals of creating smooth animations. The appli
 
 In this app, you'll learn how to manage timing, handle graphics rendering, and implement basic animation principles. Whether you're a beginner looking to understand the basics of animation or an experienced developer seeking a refresher, this project provides a hands-on approach to mastering animation techniques.
 
+---
 
 # Animation C# Code Walkthrough
 
 Welcome to the Animation C# project! In this lesson, we will explore the code step by step, breaking down each part to understand how it works. This project demonstrates the fundamentals of creating smooth animations in a Windows Forms application using C#. By the end of this walkthrough, you will have a solid understanding of the code and the principles behind animation.
 
-## Overview
-
 Animation is the art of creating the illusion of motion by displaying a series of static images in quick succession. In our app, we animate a rectangle that moves to the right. To ensure smooth animation across different devices, we designed it to be **frame-independent**, meaning it runs consistently regardless of frame rate.
 
-## License
-
-This project is licensed under the MIT License, allowing you to use, copy, modify, and distribute the software freely, as long as you include the copyright notice.
 
 ## Code Breakdown
 
@@ -600,6 +596,12 @@ This project serves as a direct port of the original Animation project created i
 
 
 
+---
+
+
+## License
+
+This project is licensed under the MIT License, allowing you to use, copy, modify, and distribute the software freely, as long as you include the copyright notice.
 
 
 
