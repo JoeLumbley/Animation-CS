@@ -46,7 +46,7 @@ namespace Animation_CS
 
         private Color BackgroundColor = Color.Black;
 
-        private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
+        //private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
 
         private readonly String FpsIdentifier = new(" FPS");
 
@@ -157,16 +157,18 @@ namespace Animation_CS
             public Point Location;
             public string Text;
             public Font Font;
+            public Brush Brush;
 
-            public DisplayStructure(Point location, string text, Font font)
+            public DisplayStructure(Point location, string text, Font font, Brush brush)
             {
                 Location = location;
                 Text = text;
                 Font = font;
+                Brush = brush;
             }
         }
 
-        private DisplayStructure FpsDisplay = new(new Point(0, 0), "--", new Font("Segoe UI", 25));
+        private DisplayStructure FpsDisplay = new(new Point(0, 0), "--", new Font("Segoe UI", 25), new SolidBrush(Color.MediumSpringGreen));
 
         private struct FrameCounterStructure
         {
@@ -313,7 +315,7 @@ namespace Animation_CS
             // Draw frames per second display.
             Buffer?.Graphics.DrawString(FpsDisplay.Text,
                                         FpsDisplay.Font,
-                                        FpsDisplayBrush,
+                                        FpsDisplay.Brush,
                                         FpsDisplay.Location);
 
         }
