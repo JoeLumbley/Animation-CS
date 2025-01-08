@@ -112,6 +112,13 @@ namespace Animation_CS
 
             }
 
+            public void CenterVertically(Rectangle clientRectangle)
+            {
+                // Center our rectangle vertically in the client area of our form.
+                Y = clientRectangle.Height / 2 - Height / 2;
+
+            }
+
         }
 
         private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f, new SolidBrush(Color.Chartreuse));
@@ -200,7 +207,9 @@ namespace Animation_CS
             {
                 ResizeFPS();
 
-                ResizeRectangle();
+                //ResizeRectangle();
+
+                Rectangle.CenterVertically(ClientRectangle);
 
                 DisposeBuffer();
 
@@ -361,12 +370,12 @@ namespace Animation_CS
 
         }
 
-        private void ResizeRectangle()
-        {
-            // Center our rectangle vertically in the client area of our form.
-            Rectangle.Y = ClientRectangle.Height / 2 - Rectangle.Height / 2;
+        //private void ResizeRectangle()
+        //{
+        //    // Center our rectangle vertically in the client area of our form.
+        //    Rectangle.Y = ClientRectangle.Height / 2 - Rectangle.Height / 2;
 
-        }
+        //}
 
         private void ResizeFPS()
         {
