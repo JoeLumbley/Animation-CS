@@ -207,8 +207,6 @@ namespace Animation_CS
             {
                 ResizeFPS();
 
-                //ResizeRectangle();
-
                 Rectangle.CenterVertically(ClientRectangle);
 
                 DisposeBuffer();
@@ -370,13 +368,6 @@ namespace Animation_CS
 
         }
 
-        //private void ResizeRectangle()
-        //{
-        //    // Center our rectangle vertically in the client area of our form.
-        //    Rectangle.Y = ClientRectangle.Height / 2 - Rectangle.Height / 2;
-
-        //}
-
         private void ResizeFPS()
         {
             // Place the FPS display at the bottom of the client area.
@@ -424,3 +415,13 @@ namespace Animation_CS
 
 // Monica is our an AI assistant.
 // https://monica.im/
+
+
+// No sacrifice, no victory. - The Witwicky family motto
+
+// or in Latin Absque sui detrimento non datur victoria
+
+// Victory is not gained without harm to oneself.
+// A powerful reminder that every success often comes with its own set of
+// challenges and sacrifices. It’s like a call to embrace the journey,
+// with all its ups and downs.
