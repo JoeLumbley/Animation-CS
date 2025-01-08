@@ -245,28 +245,9 @@ namespace Animation_CS
         {
             DeltaTime.Update();
 
-            //MoveRectangle();
-
             Rectangle.MoveRightAndWraparound(ClientRectangle,DeltaTime.ElapsedTime);
 
         }
-
-        //private void MoveRectangle()
-        //{
-        //    // Move the rectangle to the right.
-        //    Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
-        //    // Displacement = Velocity x Delta Time ( Δs = V * Δt )
-
-        //    // Wraparound
-        //    // When the rectangle exits the right side of the client area.
-        //    if (Rectangle.X > ClientRectangle.Right)
-        //    {
-        //        // The rectangle reappears on the left side the client area.
-        //        Rectangle.X = ClientRectangle.Left - Rectangle.Width;
-
-        //    }
-
-        //}
 
         private void InitializeBuffer()
         {
