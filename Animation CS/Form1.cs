@@ -419,9 +419,9 @@ namespace Animation_CS
 
 // No sacrifice, no victory. - The Witwicky family motto
 
-// or in Latin Absque sui detrimento non datur victoria
+// or in Latin "absque sui detrimento non datur victoria"
 
-// Victory is not gained without self-sacrifice.
+// Victory is not granted without self-sacrifice
 // A powerful reminder that every success often comes with its own set of
 // challenges and sacrifices. It’s like a call to embrace the journey,
 // with all its ups and downs.
