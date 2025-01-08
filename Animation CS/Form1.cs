@@ -102,6 +102,22 @@ namespace Animation_CS
                 LastFrame = lastFrame;
                 ElapsedTime = elapsedTime;
             }
+
+            public void Update()
+            {   
+                // Set the current frame's time to the current system time.
+                CurrentFrame = DateTime.Now;
+
+                // Calculates the elapsed time ( delta time Δt ) between the current frame
+                // and the last frame.
+                ElapsedTime = CurrentFrame - LastFrame;
+
+                // Updates the last frame's time to the current frame's time for use in
+                // the next update.
+                LastFrame = CurrentFrame;
+
+            }
+
         }
 
         private DeltaTimeStructure DeltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
@@ -199,27 +215,29 @@ namespace Animation_CS
 
         private void UpdateFrame()
         {
-            UpdateDeltaTime();
+            //UpdateDeltaTime();
+
+            DeltaTime.Update();
 
             MoveRectangle();
 
         }
 
-        private void UpdateDeltaTime()
-        {   // Delta time ( Δt ) is the elapsed time since the last frame.
+        //private void UpdateDeltaTime()
+        //{   // Delta time ( Δt ) is the elapsed time since the last frame.
 
-            // Set the current frame's time to the current system time.
-            DeltaTime.CurrentFrame = DateTime.Now;
+        //    // Set the current frame's time to the current system time.
+        //    DeltaTime.CurrentFrame = DateTime.Now;
 
-            // Calculates the elapsed time ( delta time Δt ) between the current frame
-            // and the last frame.
-            DeltaTime.ElapsedTime = DeltaTime.CurrentFrame - DeltaTime.LastFrame;
+        //    // Calculates the elapsed time ( delta time Δt ) between the current frame
+        //    // and the last frame.
+        //    DeltaTime.ElapsedTime = DeltaTime.CurrentFrame - DeltaTime.LastFrame;
 
-            // Updates the last frame's time to the current frame's time for use in
-            // the next update.
-            DeltaTime.LastFrame = DeltaTime.CurrentFrame;
+        //    // Updates the last frame's time to the current frame's time for use in
+        //    // the next update.
+        //    DeltaTime.LastFrame = DeltaTime.CurrentFrame;
 
-        }
+        //}
 
         private void MoveRectangle()
         {
