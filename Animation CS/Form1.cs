@@ -421,7 +421,7 @@ namespace Animation_CS
 
 // or in Latin Absque sui detrimento non datur victoria
 
-// Victory is not gained without harm to oneself.
+// Victory is not gained without self-sacrifice.
 // A powerful reminder that every success often comes with its own set of
 // challenges and sacrifices. It’s like a call to embrace the journey,
 // with all its ups and downs.
