@@ -46,8 +46,6 @@ namespace Animation_CS
 
         private Color BackgroundColor = Color.Black;
 
-        //private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
-
         private readonly String FpsIdentifier = new(" FPS");
 
         // The RectangleDouble structure represents a rectangle with
