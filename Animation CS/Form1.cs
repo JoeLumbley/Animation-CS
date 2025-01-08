@@ -46,8 +46,6 @@ namespace Animation_CS
 
         private Color BackgroundColor = Color.Black;
 
-        //private Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
-
         private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
 
         private readonly String FpsIdentifier = new(" FPS");
