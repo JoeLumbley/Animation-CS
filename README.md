@@ -413,9 +413,89 @@ The constructor initializes the form and sets up the graphics context and buffer
 Congratulations! You've just completed a detailed walkthrough of the Animation C# project. We explored each part of the code, understanding how it works together to create a smooth animation of a rectangle moving across the screen. This project serves as a solid foundation for learning more about animation techniques and graphics programming in C#. 
 
 
+---
 
 
-## More on DeltaTime
+# Exercises
+
+Here are some exercises to enhance your understanding of the Animation C# project by modifying various parameters:
+
+1. **Change the Rectangle's Color**
+   - **Task**: Modify the `RectangleBrush` variable to change the color of the rectangle.
+   - **Instructions**:
+     ```csharp
+     private readonly Brush RectangleBrush = new SolidBrush(Color.Red); // Change Color.Chartreuse to Color.Red
+     ```
+
+2. **Change the Rectangle's Size**
+   - **Task**: Adjust the dimensions of the rectangle by modifying the `Rectangle` instance.
+   - **Instructions**:
+     ```csharp
+     private RectangleDouble Rectangle = new(0, 0, 128, 128); // Change width and height to 128
+     ```
+
+3. **Change the Rectangle's Velocity**
+   - **Task**: Modify the `Velocity` variable to change how fast the rectangle moves across the screen.
+   - **Instructions**:
+     ```csharp
+     private readonly double Velocity = 100.0; // Change from 64.0 to 100.0 for faster movement
+     ```
+
+4. **Add a Random Color Change on Wraparound**
+   - **Task**: Implement functionality to change the rectangle's color randomly on Wraparound.
+   - **Instructions**:
+     ```csharp
+     
+        private void MoveRectangle()
+        {
+            // Move the rectangle to the right.
+            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
+            // Displacement = Velocity x Delta Time ( Δs = V * Δt )
+
+            // Wraparound
+            // When the rectangle exits the right side of the client area.
+            if (Rectangle.X > ClientRectangle.Right)
+            {
+                // The rectangle reappears on the left side the client area.
+                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
+     
+                // Change color randomly
+                Random rand = new Random();
+                RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
+     
+            }
+
+        }
+
+     ```
+
+5. **Implement Rectangle Resizing on Key Press**
+   - **Task**: Allow the user to resize the rectangle using keyboard input (e.g., increase size with the Up arrow and decrease with the Down arrow).
+   - **Instructions**:
+     ```csharp
+     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+     {
+         if (keyData == Keys.Up)
+         {
+             Rectangle.Width += 10;
+             Rectangle.Height += 10;
+         }
+         else if (keyData == Keys.Down)
+         {
+             Rectangle.Width -= 10;
+             Rectangle.Height -= 10;
+         }
+         return base.ProcessCmdKey(ref msg, keyData);
+     }
+     ```
+
+
+These exercises will help you explore the flexibility of the Animation C# project and deepen your understanding of graphics programming in C#. Feel free to experiment with different values and see how they affect the animation!
+
+
+----
+
+# More on DeltaTime
 
 ### What is DeltaTime?
 
@@ -497,93 +577,14 @@ private void GameLoop()
 3. **Use Fixed Time Steps for Physics**: 
    - For physics calculations, consider using a fixed timestep to maintain stability.
 
-### Conclusion
 
 DeltaTime is a fundamental concept in game development and animation that allows for smooth, frame-rate-independent motion. By accurately calculating and utilizing DeltaTime, developers can create more responsive and visually appealing applications. Understanding and implementing DeltaTime correctly is essential for any developer working in real-time graphics and animation.
 
 
----
-
-
-Here are some exercises to enhance your understanding of the Animation C# project by modifying various parameters:
-
-### Exercises
-
-1. **Change the Rectangle's Color**
-   - **Task**: Modify the `RectangleBrush` variable to change the color of the rectangle.
-   - **Instructions**:
-     ```csharp
-     private readonly Brush RectangleBrush = new SolidBrush(Color.Red); // Change Color.Chartreuse to Color.Red
-     ```
-
-2. **Change the Rectangle's Size**
-   - **Task**: Adjust the dimensions of the rectangle by modifying the `Rectangle` instance.
-   - **Instructions**:
-     ```csharp
-     private RectangleDouble Rectangle = new(0, 0, 128, 128); // Change width and height to 128
-     ```
-
-3. **Change the Rectangle's Velocity**
-   - **Task**: Modify the `Velocity` variable to change how fast the rectangle moves across the screen.
-   - **Instructions**:
-     ```csharp
-     private readonly double Velocity = 100.0; // Change from 64.0 to 100.0 for faster movement
-     ```
-
-4. **Add a Random Color Change on Wraparound**
-   - **Task**: Implement functionality to change the rectangle's color randomly on Wraparound.
-   - **Instructions**:
-     ```csharp
-     
-        private void MoveRectangle()
-        {
-            // Move the rectangle to the right.
-            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
-            // Displacement = Velocity x Delta Time ( Δs = V * Δt )
-
-            // Wraparound
-            // When the rectangle exits the right side of the client area.
-            if (Rectangle.X > ClientRectangle.Right)
-            {
-                // The rectangle reappears on the left side the client area.
-                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
-     
-                // Change color randomly
-                Random rand = new Random();
-                RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
-     
-            }
-
-        }
-
-     ```
-
-5. **Implement Rectangle Resizing on Key Press**
-   - **Task**: Allow the user to resize the rectangle using keyboard input (e.g., increase size with the Up arrow and decrease with the Down arrow).
-   - **Instructions**:
-     ```csharp
-     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-     {
-         if (keyData == Keys.Up)
-         {
-             Rectangle.Width += 10;
-             Rectangle.Height += 10;
-         }
-         else if (keyData == Keys.Down)
-         {
-             Rectangle.Width -= 10;
-             Rectangle.Height -= 10;
-         }
-         return base.ProcessCmdKey(ref msg, keyData);
-     }
-     ```
-
-### Conclusion
-These exercises will help you explore the flexibility of the Animation C# project and deepen your understanding of graphics programming in C#. Feel free to experiment with different values and see how they affect the animation!
 
 ---
 
-## Related Projects
+# Related Projects
 
 This project serves as a direct port of the original Animation project created in VB.NET, which you can also explore for a different perspective on the same concepts. For more information and to access the complete code, visit the [Animation Repository](https://github.com/JoeLumbley/Animation) and the [Animation C# Repository](https://github.com/JoeLumbley/Animation-CS). Happy coding!
 
@@ -599,7 +600,7 @@ This project serves as a direct port of the original Animation project created i
 ---
 
 
-## License
+# License
 
 This project is licensed under the MIT License, allowing you to use, copy, modify, and distribute the software freely, as long as you include the copyright notice.
 
