@@ -42,7 +42,7 @@ namespace Animation_CS
 
         private BufferedGraphics? Buffer;
         
-        private Size MinimumMaxBufferSize = new (1280, 720);
+        private readonly Size MinimumMaxBufferSize = new (1280, 720);
 
         private Color BackgroundColor = Color.Black;
 
@@ -50,7 +50,7 @@ namespace Animation_CS
 
         private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
 
-        private String FpsIdentifier = new(" FPS");
+        private readonly String FpsIdentifier = new(" FPS");
 
         // The RectangleDouble structure represents a rectangle with
         // double-precision coordinates and dimensions.
