@@ -46,7 +46,7 @@ namespace Animation_CS
 
         private Color BackgroundColor = Color.Black;
 
-        private Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
+        //private Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
 
         private Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
 
@@ -57,14 +57,16 @@ namespace Animation_CS
         public struct RectangleDouble
         {
             public double X, Y, Width, Height, Velocity;
+            public Brush Brush;
 
-            public RectangleDouble(double x, double y, double width, double height, double velocity)
+            public RectangleDouble(double x, double y, double width, double height, double velocity, Brush brush)
             {
                 X = x;
                 Y = y;
                 Width = width;
                 Height = height;
                 Velocity = velocity;
+                Brush = brush;
             }
 
             // Methods to round attributes to
@@ -116,7 +118,7 @@ namespace Animation_CS
 
         }
 
-        private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f);
+        private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f, new SolidBrush(Color.Chartreuse));
 
         // The DeltaTimeStructure represents the time difference
         // between two frames.
@@ -151,8 +153,6 @@ namespace Animation_CS
         }
 
         private DeltaTimeStructure DeltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
-
-        //private double Velocity = 64.0;
 
         private struct DisplayStructure
         {
@@ -306,7 +306,7 @@ namespace Animation_CS
         {
             Buffer?.Graphics.Clear(BackgroundColor);
             
-            Buffer?.Graphics.FillRectangle(RectangleBrush,
+            Buffer?.Graphics.FillRectangle(Rectangle.Brush,
                                            Rectangle.GetNearestX(), 
                                            Rectangle.GetNearestY(), 
                                            Rectangle.GetNearestWidth(), 
