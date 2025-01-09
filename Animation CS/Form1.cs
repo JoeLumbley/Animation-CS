@@ -249,6 +249,8 @@ namespace Animation_CS
 
             UpdateFrameCounter();
 
+            EraseFrame();
+
             base.OnPaint(e);
 
         }
@@ -268,25 +270,25 @@ namespace Animation_CS
 
         }
 
-        private void InitializeBuffer()
-        {
-            Context = BufferedGraphicsManager.Current;
+        //private void InitializeBuffer()
+        //{
+        //    Context = BufferedGraphicsManager.Current;
 
-            if (Screen.PrimaryScreen != null)
-            {
-                Context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
-            }
-            else
-            {
-                Context.MaximumBuffer = MinimumMaxBufferSize;
+        //    if (Screen.PrimaryScreen != null)
+        //    {
+        //        Context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
+        //    }
+        //    else
+        //    {
+        //        Context.MaximumBuffer = MinimumMaxBufferSize;
 
-                Debug.Print($"Primary screen not detected.");
+        //        Debug.Print($"Primary screen not detected.");
 
-            }
+        //    }
 
-            AllocateBuffer();
+        //    AllocateBuffer();
 
-        }
+        //}
 
         private void AllocateBuffer()
         {
@@ -300,14 +302,15 @@ namespace Animation_CS
                 Buffer.Graphics.TextRenderingHint = 
               System.Drawing.Text.TextRenderingHint.AntiAlias;
 
+                Buffer?.Graphics.Clear(BackgroundColor);
+
+
             }
 
         }
 
         private void DrawFrame()
         {
-            Buffer?.Graphics.Clear(BackgroundColor);
-            
             Buffer?.Graphics.FillRectangle(Rectangle.Brush,
                                            Rectangle.GetNearestX(), 
                                            Rectangle.GetNearestY(), 
@@ -319,6 +322,12 @@ namespace Animation_CS
                                         FpsDisplay.Font,
                                         FpsDisplay.Brush,
                                         FpsDisplay.Location);
+
+        }
+
+        private void EraseFrame()
+        {
+            Buffer?.Graphics.Clear(BackgroundColor);
 
         }
 
@@ -404,8 +413,9 @@ namespace Animation_CS
             // Ensure that Screen.PrimaryScreen is not null.
             if (Screen.PrimaryScreen != null)
             {
-                // Set buffer size to the primary working area.
+                // Set buffer size to the primary working area size.
                 Context.MaximumBuffer = Screen.PrimaryScreen.WorkingArea.Size;
+
             }
             else
             {
@@ -413,7 +423,9 @@ namespace Animation_CS
                 Context.MaximumBuffer = MinimumMaxBufferSize;
 
                 Debug.Print($"Primary screen not detected.");
+
             }
+
             Buffer = Context.Allocate(CreateGraphics(), ClientRectangle);
 
             Buffer.Graphics.CompositingMode =
