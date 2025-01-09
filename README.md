@@ -452,7 +452,8 @@ This method updates the frame counter, calculating the FPS and updating the disp
 ```csharp
 private void ResizeFPS()
 {
-    FpsDisplay.Location = new Point(FpsDisplay.Location.X, ClientRectangle.Bottom - 75);
+    FpsDisplay.Location = new Point(FpsDisplay.Location.X,
+                                    ClientRectangle.Bottom - 75);
 }
 ```
 
