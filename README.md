@@ -152,7 +152,12 @@ This method centers the rectangle vertically in the client area of the form.
 ### Rectangle Instance
 
 ```csharp
-private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f, new SolidBrush(Color.Chartreuse));
+private RectangleDouble Rectangle = new(0.0f,
+                                        0.0f,
+                                        256.0f,
+                                        256.0f,
+                                        32.0f,
+                                        new SolidBrush(Color.Chartreuse));
 ```
 
 Here, we create an instance of `RectangleDouble`, starting at position (0, 0) with a width and height of 256 pixels, a velocity of 32 pixels per second, and a color of chartreuse.
