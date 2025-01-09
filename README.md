@@ -312,7 +312,8 @@ This method is called whenever the form needs to be redrawn. It allocates the bu
 private void UpdateFrame()
 {
     DeltaTime.Update();
-    Rectangle.MoveRightAndWraparound(ClientRectangle, DeltaTime.ElapsedTime);
+    Rectangle.MoveRightAndWraparound(ClientRectangle,
+                                     DeltaTime.ElapsedTime);
 }
 ```
 
