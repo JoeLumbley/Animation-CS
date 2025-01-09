@@ -348,8 +348,12 @@ private void AllocateBuffer()
     if (Buffer == null)
     {
         Buffer = Context.Allocate(CreateGraphics(), ClientRectangle);
-        Buffer.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-        Buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+        Buffer.Graphics.CompositingMode =
+  System.Drawing.Drawing2D.CompositingMode.SourceOver;
+
+        Buffer.Graphics.TextRenderingHint =
+       System.Drawing.Text.TextRenderingHint.AntiAlias;
     }
 }
 ```
@@ -362,8 +366,17 @@ This method allocates the buffer for drawing graphics, ensuring that the graphic
 private void DrawFrame()
 {
     Buffer?.Graphics.Clear(BackgroundColor);
-    Buffer?.Graphics.FillRectangle(Rectangle.Brush, Rectangle.GetNearestX(), Rectangle.GetNearestY(), Rectangle.GetNearestWidth(), Rectangle.GetNearestHeight());
-    Buffer?.Graphics.DrawString(FpsDisplay.Text, FpsDisplay.Font, FpsDisplay.Brush, FpsDisplay.Location);
+
+    Buffer?.Graphics.FillRectangle(Rectangle.Brush,
+                                   Rectangle.GetNearestX(),
+                                   Rectangle.GetNearestY(),
+                                   Rectangle.GetNearestWidth(),
+                                   Rectangle.GetNearestHeight());
+
+    Buffer?.Graphics.DrawString(FpsDisplay.Text,
+                                FpsDisplay.Font,
+                                FpsDisplay.Brush,
+                                FpsDisplay.Location);
 }
 ```
 
