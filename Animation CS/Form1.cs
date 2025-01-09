@@ -425,9 +425,6 @@ namespace Animation_CS
         }
 
 
-
-
-
     }
 
 
