@@ -105,7 +105,8 @@ namespace Animation_CS
 
             }
 
-            public void MoveRightAndWraparound(Rectangle clientRectangle, TimeSpan deltaTime)
+            public void MoveRightAndWraparound(Rectangle clientRectangle,
+                                               TimeSpan deltaTime)
             {
                 MoveRight(deltaTime);
 
@@ -122,7 +123,8 @@ namespace Animation_CS
 
         }
 
-        private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f, new SolidBrush(Color.Chartreuse));
+        private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f,
+                                                new SolidBrush(Color.Chartreuse));
 
         // The DeltaTimeStructure represents the time difference
         // between two frames.
