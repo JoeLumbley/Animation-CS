@@ -191,7 +191,8 @@ namespace Animation_CS
             public TimeSpan TimeElapsed;
             public double SecondsElapsed;
 
-            public FrameCounterStructure(int frameCount, DateTime startTime, TimeSpan timeElapsed, double secondsElapsed)
+            public FrameCounterStructure(int frameCount, DateTime startTime,
+                                   TimeSpan timeElapsed, double secondsElapsed)
             {
                 FrameCount = frameCount;
                 StartTime = startTime;
