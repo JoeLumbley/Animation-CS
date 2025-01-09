@@ -206,7 +206,8 @@ private struct DisplayStructure
     public Font Font;
     public Brush Brush;
 
-    public DisplayStructure(Point location, string text, Font font, Brush brush)
+    public DisplayStructure(Point location, string text, Font font,
+                            Brush brush)
     {
         Location = location;
         Text = text;
@@ -232,7 +233,8 @@ private struct FrameCounterStructure
     public TimeSpan TimeElapsed;
     public double SecondsElapsed;
 
-    public FrameCounterStructure(int frameCount, DateTime startTime, TimeSpan timeElapsed, double secondsElapsed)
+    public FrameCounterStructure(int frameCount, DateTime startTime,
+                           TimeSpan timeElapsed, double secondsElapsed)
     {
         FrameCount = frameCount;
         StartTime = startTime;
