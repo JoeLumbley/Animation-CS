@@ -55,7 +55,8 @@ namespace Animation_CS
             public double X, Y, Width, Height, Velocity;
             public Brush Brush;
 
-            public RectangleDouble(double x, double y, double width, double height, double velocity, Brush brush)
+            public RectangleDouble(double x, double y, double width, double height,
+                                   double velocity, Brush brush)
             {
                 X = x;
                 Y = y;
