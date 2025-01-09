@@ -366,8 +366,17 @@ This method allocates the buffer for drawing graphics, ensuring that the graphic
 private void DrawFrame()
 {
     Buffer?.Graphics.Clear(BackgroundColor);
-    Buffer?.Graphics.FillRectangle(Rectangle.Brush, Rectangle.GetNearestX(), Rectangle.GetNearestY(), Rectangle.GetNearestWidth(), Rectangle.GetNearestHeight());
-    Buffer?.Graphics.DrawString(FpsDisplay.Text, FpsDisplay.Font, FpsDisplay.Brush, FpsDisplay.Location);
+
+    Buffer?.Graphics.FillRectangle(Rectangle.Brush,
+                                   Rectangle.GetNearestX(),
+                                   Rectangle.GetNearestY(),
+                                   Rectangle.GetNearestWidth(),
+                                   Rectangle.GetNearestHeight());
+
+    Buffer?.Graphics.DrawString(FpsDisplay.Text,
+                                FpsDisplay.Font,
+                                FpsDisplay.Brush,
+                                FpsDisplay.Location);
 }
 ```
 
