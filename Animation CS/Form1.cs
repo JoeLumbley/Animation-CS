@@ -169,7 +169,8 @@ namespace Animation_CS
             public Font Font;
             public Brush Brush;
 
-            public DisplayStructure(Point location, string text, Font font, Brush brush)
+            public DisplayStructure(Point location, string text, Font font,
+                                    Brush brush)
             {
                 Location = location;
                 Text = text;
@@ -178,7 +179,10 @@ namespace Animation_CS
             }
         }
 
-        private DisplayStructure FpsDisplay = new(new Point(0, 0), "--", new Font("Segoe UI", 25), new SolidBrush(Color.MediumSpringGreen));
+        private DisplayStructure FpsDisplay = new(new Point(0, 0),
+                                                             "--",
+                                         new Font("Segoe UI", 25),
+                          new SolidBrush(Color.MediumSpringGreen));
 
         private struct FrameCounterStructure
         {
