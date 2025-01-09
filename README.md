@@ -452,7 +452,8 @@ This method updates the frame counter, calculating the FPS and updating the disp
 ```csharp
 private void ResizeFPS()
 {
-    FpsDisplay.Location = new Point(FpsDisplay.Location.X, ClientRectangle.Bottom - 75);
+    FpsDisplay.Location = new Point(FpsDisplay.Location.X,
+                                    ClientRectangle.Bottom - 75);
 }
 ```
 
@@ -475,14 +476,19 @@ public Form1()
         Debug.Print($"Primary screen not detected.");
     }
     Buffer = Context.Allocate(CreateGraphics(), ClientRectangle);
-    Buffer.Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-    Buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+    Buffer.Graphics.CompositingMode =
+System.Drawing.Drawing2D.CompositingMode.SourceOver;
+
+    Buffer.Graphics.TextRenderingHint =
+    System.Drawing.Text.TextRenderingHint.AntiAlias;
+
 }
 ```
 
 The constructor initializes the form and sets up the graphics context and buffer.
 
-## Conclusion
+
 
 Congratulations! You’ve just completed a detailed walkthrough of the Animation C# project. We explored each part of the code, understanding how it works together to create a smooth animation of a rectangle moving across the screen. This project serves as a solid foundation for learning more about animation techniques and graphics programming in C#. 
 
