@@ -9,27 +9,27 @@ This project showcases the fundamentals of creating smooth animations. The appli
 
 In this app, you'll learn how to manage timing, handle graphics rendering, and implement basic animation principles. Whether you're a beginner looking to understand the basics of animation or an experienced developer seeking a refresher, this project provides a hands-on approach to mastering animation techniques.
 
+---
 
-# Animation C# Code Walkthrough
+# Code Walkthrough
 
 Welcome to the Animation C# project! In this lesson, we will explore the code step by step, breaking down each part to understand how it works. This project demonstrates the fundamentals of creating smooth animations in a Windows Forms application using C#. By the end of this walkthrough, you will have a solid understanding of the code and the principles behind animation.
 
-## Overview
+Animation is the art of creating the illusion of motion by displaying a series of static images in quick succession. In our app, we use animation to make it appear as though our rectangle is moving towards the right. To ensure that our animation runs smoothly on all devices, we have designed it to be frame-independent. This means that our animation is not affected by changes in the frame rate, ensuring a consistent and seamless experience for all users.
 
-Animation is the art of creating the illusion of motion by displaying a series of static images in quick succession. In our app, we animate a rectangle that moves to the right. To ensure smooth animation across different devices, we designed it to be **frame-independent**, meaning it runs consistently regardless of frame rate.
 
-## License
 
-This project is licensed under the MIT License, allowing you to use, copy, modify, and distribute the software freely, as long as you include the copyright notice.
+## The Breakdown
 
-## Code Breakdown
+Let's dive into the code line by line.
 
-### Importing Necessary Libraries
+### Using Directives
 
 ```csharp
 using System.Diagnostics;
 ```
-We start by importing the `System.Diagnostics` namespace, which provides classes for debugging and tracing. This will help us print debug messages to the console.
+
+This line imports the `System.Diagnostics` namespace, which provides classes for debugging and tracing. This will help us print debug messages to the console.
 
 ### Namespace Declaration
 
@@ -37,7 +37,8 @@ We start by importing the `System.Diagnostics` namespace, which provides classes
 namespace Animation_CS
 {
 ```
-Here, we define a namespace called `Animation_CS`, which helps organize our code and avoid naming conflicts with other parts of the program.
+
+Here, we define a namespace called `Animation_CS`. Namespaces are used to organize code and avoid naming conflicts with other parts of the program.
 
 ### Class Definition
 
@@ -45,60 +46,123 @@ Here, we define a namespace called `Animation_CS`, which helps organize our code
 public partial class Form1 : Form
 {
 ```
-We define a class named `Form1` that inherits from `Form`. This means that `Form1` is a type of window in our application. The `partial` keyword allows us to define the class across multiple files, if needed.
+
+We define a class named `Form1` that inherits from `Form`. This means that `Form1` is a type of window in our application. The `partial` keyword allows us to define the class across multiple files if needed.
 
 ### Variable Declarations
 
 ```csharp
 private BufferedGraphicsContext Context = new();
 private BufferedGraphics? Buffer;
-private Size MinimumMaxBufferSize = new (1280, 720);
-private readonly Color BackgroundColor = Color.Black;
-private readonly Brush RectangleBrush = new SolidBrush(Color.Chartreuse);
-private readonly Brush FpsDisplayBrush = new SolidBrush(Color.MediumSpringGreen);
+private readonly Size MinimumMaxBufferSize = new(1280, 720);
+private Color BackgroundColor = Color.Black;
 private readonly String FpsIdentifier = new(" FPS");
 ```
-- **BufferedGraphicsContext Context**: This manages the buffering for smoother graphics rendering.
-- **BufferedGraphics? Buffer**: This holds our graphics buffer.
-- **Size MinimumMaxBufferSize**: Sets a minimum size for the buffer.
-- **Color BackgroundColor**: Defines the background color of the form.
-- **Brush RectangleBrush**: Specifies the color used to fill the rectangle.
-- **Brush FpsDisplayBrush**: Defines the color for the FPS (frames per second) display.
-- **String FpsIdentifier**: A string to identify the FPS display.
 
-### Rectangle Structure
+- **BufferedGraphicsContext Context**: This manages the buffering for smoother graphics rendering.
+- **BufferedGraphics? Buffer**: This holds our graphics buffer, which is used to draw graphics off-screen before displaying them.
+- **Size MinimumMaxBufferSize**: Sets a minimum size for the buffer to 1280x720 pixels.
+- **Color BackgroundColor**: Defines the background color of the form, set to black.
+- **String FpsIdentifier**: A string to identify the FPS (frames per second) display on the screen.
+
+### RectangleDouble Structure
 
 ```csharp
 public struct RectangleDouble
 {
-    public double X, Y, Width, Height;
+    public double X, Y, Width, Height, Velocity;
+    public Brush Brush;
 
-    public RectangleDouble(double x, double y, double width, double height)
+    public RectangleDouble(double x, double y, double width, double height, double velocity, Brush brush)
     {
         X = x;
         Y = y;
         Width = width;
         Height = height;
+        Velocity = velocity;
+        Brush = brush;
     }
+```
 
-    public readonly int GetNearestX() { return (int)Math.Round(X); }
-    public readonly int GetNearestY() { return (int)Math.Round(Y); }
-    public readonly int GetNearestWidth() { return (int)Math.Round(Width); }
-    public readonly int GetNearestHeight() { return (int)Math.Round(Height); }
+This structure represents a rectangle with double-precision coordinates and dimensions. It includes:
+- **Constructor**: Initializes the rectangle's position, size, velocity, and color (brush).
+
+### Methods in RectangleDouble
+
+#### GetNearestX, GetNearestY, GetNearestWidth, GetNearestHeight
+
+```csharp
+public readonly int GetNearestX()
+{
+    return (int)Math.Round(X);
 }
 ```
-This structure represents a rectangle with double-precision coordinates and dimensions. It includes:
-- **Constructor**: Initializes the rectangle's position and size.
-- **GetNearestX/Y/Width/Height**: Methods that round the rectangle's attributes to the nearest integer values for drawing.
+
+These methods round the rectangle's attributes to the nearest integer values for drawing. This is important because pixel coordinates must be whole numbers.
+
+#### MoveRight
+
+```csharp
+public void MoveRight(TimeSpan deltaTime)
+{
+    X += Velocity * deltaTime.TotalSeconds;
+}
+```
+
+This method updates the rectangle's position based on its velocity and the time elapsed since the last frame (`deltaTime`). The formula used is:
+- **Displacement = Velocity x Delta Time (Δs = V * Δt)**
+
+#### Wraparound
+
+```csharp
+public void Wraparound(Rectangle clientRectangle)
+{
+    if (X > clientRectangle.Right)
+    {
+        X = clientRectangle.Left - Width;
+    }
+}
+```
+
+This method checks if the rectangle has exited the right side of the client area. If it has, it repositions the rectangle to the left side of the screen, creating a wraparound effect.
+
+#### MoveRightAndWraparound
+
+```csharp
+public void MoveRightAndWraparound(Rectangle clientRectangle, TimeSpan deltaTime)
+{
+    MoveRight(deltaTime);
+    Wraparound(clientRectangle);
+}
+```
+
+This method combines moving the rectangle to the right and checking for wraparound in one call.
+
+#### CenterVertically
+
+```csharp
+public void CenterVertically(Rectangle clientRectangle)
+{
+    Y = clientRectangle.Height / 2 - Height / 2;
+}
+```
+
+This method centers the rectangle vertically in the client area of the form.
 
 ### Rectangle Instance
 
 ```csharp
-private RectangleDouble Rectangle = new(0, 0, 256, 256);
+private RectangleDouble Rectangle = new(0.0f,
+                                        0.0f,
+                                        256.0f,
+                                        256.0f,
+                                        32.0f,
+                                        new SolidBrush(Color.Chartreuse));
 ```
-Here, we create an instance of `RectangleDouble`, starting at position (0, 0) with a width and height of 256 pixels.
 
-### Delta Time Structure
+Here, we create an instance of `RectangleDouble`, starting at position (0, 0) with a width and height of 256 pixels, a velocity of 32 pixels per second, and a color of chartreuse.
+
+### DeltaTimeStructure
 
 ```csharp
 private struct DeltaTimeStructure
@@ -113,21 +177,27 @@ private struct DeltaTimeStructure
         LastFrame = lastFrame;
         ElapsedTime = elapsedTime;
     }
-}
 ```
-This structure keeps track of the time between frames, which is crucial for smooth animations. It stores:
+
+This structure keeps track of the time between frames, which is crucial for smooth animations. It includes:
 - **CurrentFrame**: The time of the current frame.
 - **LastFrame**: The time of the last frame.
 - **ElapsedTime**: The time difference between the two frames.
 
-### Velocity Variable
+#### Update Method
 
 ```csharp
-private readonly double Velocity = 64.0;
+public void Update()
+{   
+    CurrentFrame = DateTime.Now;
+    ElapsedTime = CurrentFrame - LastFrame;
+    LastFrame = CurrentFrame;
+}
 ```
-This variable determines how fast the rectangle moves, set to 64 pixels per second.
 
-### Display Structure
+This method updates the current frame time, calculates the elapsed time since the last frame, and updates the last frame's time for the next iteration.
+
+### DisplayStructure
 
 ```csharp
 private struct DisplayStructure
@@ -135,21 +205,25 @@ private struct DisplayStructure
     public Point Location;
     public string Text;
     public Font Font;
+    public Brush Brush;
 
-    public DisplayStructure(Point location, string text, Font font)
+    public DisplayStructure(Point location, string text, Font font, Brush brush)
     {
         Location = location;
         Text = text;
         Font = font;
+        Brush = brush;
     }
 }
 ```
+
 This structure is used to display text (like FPS) on the screen. It includes:
 - **Location**: The position where the text will be displayed.
 - **Text**: The actual text to display.
 - **Font**: The font used for the text.
+- **Brush**: The color of the text.
 
-### Frame Counter Structure
+### FrameCounterStructure
 
 ```csharp
 private struct FrameCounterStructure
@@ -168,9 +242,12 @@ private struct FrameCounterStructure
     }
 }
 ```
+
 This structure tracks the number of frames rendered and the elapsed time, helping us calculate the FPS.
 
-### Form Load Event
+### Form Event Handlers
+
+#### Form1_Load
 
 ```csharp
 private void Form1_Load(object sender, EventArgs e)
@@ -179,9 +256,10 @@ private void Form1_Load(object sender, EventArgs e)
     Debug.Print($"Running...{DateTime.Now}");
 }
 ```
+
 This method is called when the form loads. It initializes the application and prints a debug message to the console.
 
-### Form Resize Event
+#### Form1_Resize
 
 ```csharp
 private void Form1_Resize(object sender, EventArgs e)
@@ -189,14 +267,15 @@ private void Form1_Resize(object sender, EventArgs e)
     if (WindowState != FormWindowState.Minimized)
     {
         ResizeFPS();
-        ResizeRectangle();
+        Rectangle.CenterVertically(ClientRectangle);
         DisposeBuffer();
     }
 }
 ```
+
 This method is triggered when the form is resized. It adjusts the FPS display and rectangle size, and disposes of the buffer if the window is not minimized.
 
-### Timer Tick Event
+#### Timer Tick Event
 
 ```csharp
 private void timer1_Tick(object sender, EventArgs e)
@@ -208,6 +287,7 @@ private void timer1_Tick(object sender, EventArgs e)
     }
 }
 ```
+
 This event is triggered at regular intervals (every 10 ms). It updates the frame and calls the `OnPaint` method to redraw the form.
 
 ### OnPaint Method
@@ -222,6 +302,7 @@ protected override void OnPaint(PaintEventArgs e)
     base.OnPaint(e);
 }
 ```
+
 This method is called whenever the form needs to be redrawn. It allocates the buffer, draws the current frame, renders it on the form, and updates the frame counter.
 
 ### Update Frame Method
@@ -229,37 +310,12 @@ This method is called whenever the form needs to be redrawn. It allocates the bu
 ```csharp
 private void UpdateFrame()
 {
-    UpdateDeltaTime();
-    MoveRectangle();
+    DeltaTime.Update();
+    Rectangle.MoveRightAndWraparound(ClientRectangle, DeltaTime.ElapsedTime);
 }
 ```
+
 This method updates the time since the last frame and moves the rectangle.
-
-### Update Delta Time Method
-
-```csharp
-private void UpdateDeltaTime()
-{
-    DeltaTime.CurrentFrame = DateTime.Now;
-    DeltaTime.ElapsedTime = DeltaTime.CurrentFrame - DeltaTime.LastFrame;
-    DeltaTime.LastFrame = DeltaTime.CurrentFrame;
-}
-```
-This method calculates the elapsed time since the last frame, updating the `DeltaTime` structure accordingly.
-
-### Move Rectangle Method
-
-```csharp
-private void MoveRectangle()
-{
-    Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
-    if (Rectangle.X > ClientRectangle.Right)
-    {
-        Rectangle.X = ClientRectangle.Left - Rectangle.Width;
-    }
-}
-```
-Here, we update the rectangle's position based on its velocity and wrap it around when it exits the screen.
 
 ### Initialize Buffer Method
 
@@ -279,6 +335,7 @@ private void InitializeBuffer()
     AllocateBuffer();
 }
 ```
+
 This method sets up the graphics buffer based on the screen size and allocates the buffer.
 
 ### Allocate Buffer Method
@@ -294,6 +351,7 @@ private void AllocateBuffer()
     }
 }
 ```
+
 This method allocates the buffer for drawing graphics, ensuring that the graphics are rendered smoothly.
 
 ### Draw Frame Method
@@ -302,10 +360,11 @@ This method allocates the buffer for drawing graphics, ensuring that the graphic
 private void DrawFrame()
 {
     Buffer?.Graphics.Clear(BackgroundColor);
-    Buffer?.Graphics.FillRectangle(RectangleBrush, Rectangle.GetNearestX(), Rectangle.GetNearestY(), Rectangle.GetNearestWidth(), Rectangle.GetNearestHeight());
-    Buffer?.Graphics.DrawString(FpsDisplay.Text, FpsDisplay.Font, FpsDisplayBrush, FpsDisplay.Location);
+    Buffer?.Graphics.FillRectangle(Rectangle.Brush, Rectangle.GetNearestX(), Rectangle.GetNearestY(), Rectangle.GetNearestWidth(), Rectangle.GetNearestHeight());
+    Buffer?.Graphics.DrawString(FpsDisplay.Text, FpsDisplay.Font, FpsDisplay.Brush, FpsDisplay.Location);
 }
 ```
+
 This method clears the buffer, draws the rectangle, and displays the current FPS.
 
 ### Dispose Buffer Method
@@ -320,6 +379,7 @@ private void DisposeBuffer()
     }
 }
 ```
+
 This method disposes of the graphics buffer to free up resources.
 
 ### Initialize Application Method
@@ -332,6 +392,7 @@ private void InitializeApp()
     Timer1.Start();
 }
 ```
+
 This method initializes the form and starts the timer for regular updates.
 
 ### Initialize Form Method
@@ -346,6 +407,7 @@ private void InitializeForm()
     WindowState = FormWindowState.Maximized;
 }
 ```
+
 This method sets up the form's appearance and behavior, centering it on the screen and maximizing the window.
 
 ### Update Frame Counter Method
@@ -367,17 +429,8 @@ private void UpdateFrameCounter()
     }
 }
 ```
+
 This method updates the frame counter, calculating the FPS and updating the display text accordingly.
-
-### Resize Rectangle Method
-
-```csharp
-private void ResizeRectangle()
-{
-    Rectangle.Y = ClientRectangle.Height / 2 - Rectangle.Height / 2;
-}
-```
-This method centers the rectangle vertically in the client area of the form.
 
 ### Resize FPS Method
 
@@ -387,6 +440,7 @@ private void ResizeFPS()
     FpsDisplay.Location = new Point(FpsDisplay.Location.X, ClientRectangle.Bottom - 75);
 }
 ```
+
 This method positions the FPS display at the bottom of the client area.
 
 ### Constructor
@@ -410,16 +464,98 @@ public Form1()
     Buffer.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 }
 ```
+
 The constructor initializes the form and sets up the graphics context and buffer.
 
+## Conclusion
+
+Congratulations! You’ve just completed a detailed walkthrough of the Animation C# project. We explored each part of the code, understanding how it works together to create a smooth animation of a rectangle moving across the screen. This project serves as a solid foundation for learning more about animation techniques and graphics programming in C#. 
+
+Feel free to experiment with different values and see how they affect the animation! Happy coding!
+
+---
 
 
-Congratulations! You've just completed a detailed walkthrough of the Animation C# project. We explored each part of the code, understanding how it works together to create a smooth animation of a rectangle moving across the screen. This project serves as a solid foundation for learning more about animation techniques and graphics programming in C#. 
+# Exercises
+
+Here are some exercises to enhance your understanding of the Animation C# project by modifying various parameters:
+
+1. **Change the Rectangle's Color**
+   - **Task**: Modify the `RectangleBrush` variable to change the color of the rectangle.
+   - **Instructions**:
+     ```csharp
+     private readonly Brush RectangleBrush = new SolidBrush(Color.Red); // Change Color.Chartreuse to Color.Red
+     ```
+
+2. **Change the Rectangle's Size**
+   - **Task**: Adjust the dimensions of the rectangle by modifying the `Rectangle` instance.
+   - **Instructions**:
+     ```csharp
+     private RectangleDouble Rectangle = new(0, 0, 128, 128); // Change width and height to 128
+     ```
+
+3. **Change the Rectangle's Velocity**
+   - **Task**: Modify the `Velocity` variable to change how fast the rectangle moves across the screen.
+   - **Instructions**:
+     ```csharp
+     private readonly double Velocity = 100.0; // Change from 64.0 to 100.0 for faster movement
+     ```
+
+4. **Add a Random Color Change on Wraparound**
+   - **Task**: Implement functionality to change the rectangle's color randomly on Wraparound.
+   - **Instructions**:
+     ```csharp
+     
+        private void MoveRectangle()
+        {
+            // Move the rectangle to the right.
+            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
+            // Displacement = Velocity x Delta Time ( Δs = V * Δt )
+
+            // Wraparound
+            // When the rectangle exits the right side of the client area.
+            if (Rectangle.X > ClientRectangle.Right)
+            {
+                // The rectangle reappears on the left side the client area.
+                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
+     
+                // Change color randomly
+                Random rand = new Random();
+                RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
+     
+            }
+
+        }
+
+     ```
+
+5. **Implement Rectangle Resizing on Key Press**
+   - **Task**: Allow the user to resize the rectangle using keyboard input (e.g., increase size with the Up arrow and decrease with the Down arrow).
+   - **Instructions**:
+     ```csharp
+     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+     {
+         if (keyData == Keys.Up)
+         {
+             Rectangle.Width += 10;
+             Rectangle.Height += 10;
+         }
+         else if (keyData == Keys.Down)
+         {
+             Rectangle.Width -= 10;
+             Rectangle.Height -= 10;
+         }
+         return base.ProcessCmdKey(ref msg, keyData);
+     }
+     ```
 
 
+These exercises will help you explore the flexibility of the Animation C# project and deepen your understanding of graphics programming in C#. Feel free to experiment with different values and see how they affect the animation!
 
 
-## More on DeltaTime
+----
+
+# More on DeltaTime
 
 ### What is DeltaTime?
 
@@ -501,93 +637,14 @@ private void GameLoop()
 3. **Use Fixed Time Steps for Physics**: 
    - For physics calculations, consider using a fixed timestep to maintain stability.
 
-### Conclusion
 
 DeltaTime is a fundamental concept in game development and animation that allows for smooth, frame-rate-independent motion. By accurately calculating and utilizing DeltaTime, developers can create more responsive and visually appealing applications. Understanding and implementing DeltaTime correctly is essential for any developer working in real-time graphics and animation.
 
 
----
-
-
-Here are some exercises to enhance your understanding of the Animation C# project by modifying various parameters:
-
-### Exercises
-
-1. **Change the Rectangle's Color**
-   - **Task**: Modify the `RectangleBrush` variable to change the color of the rectangle.
-   - **Instructions**:
-     ```csharp
-     private readonly Brush RectangleBrush = new SolidBrush(Color.Red); // Change Color.Chartreuse to Color.Red
-     ```
-
-2. **Change the Rectangle's Size**
-   - **Task**: Adjust the dimensions of the rectangle by modifying the `Rectangle` instance.
-   - **Instructions**:
-     ```csharp
-     private RectangleDouble Rectangle = new(0, 0, 128, 128); // Change width and height to 128
-     ```
-
-3. **Change the Rectangle's Velocity**
-   - **Task**: Modify the `Velocity` variable to change how fast the rectangle moves across the screen.
-   - **Instructions**:
-     ```csharp
-     private readonly double Velocity = 100.0; // Change from 64.0 to 100.0 for faster movement
-     ```
-
-4. **Add a Random Color Change on Wraparound**
-   - **Task**: Implement functionality to change the rectangle's color randomly on Wraparound.
-   - **Instructions**:
-     ```csharp
-     
-        private void MoveRectangle()
-        {
-            // Move the rectangle to the right.
-            Rectangle.X += Velocity * DeltaTime.ElapsedTime.TotalSeconds;
-            // Displacement = Velocity x Delta Time ( Δs = V * Δt )
-
-            // Wraparound
-            // When the rectangle exits the right side of the client area.
-            if (Rectangle.X > ClientRectangle.Right)
-            {
-                // The rectangle reappears on the left side the client area.
-                Rectangle.X = ClientRectangle.Left - Rectangle.Width;
-     
-                // Change color randomly
-                Random rand = new Random();
-                RectangleBrush = new SolidBrush(Color.FromArgb(rand.Next(256), rand.Next(256), rand.Next(256)));
-     
-            }
-
-        }
-
-     ```
-
-5. **Implement Rectangle Resizing on Key Press**
-   - **Task**: Allow the user to resize the rectangle using keyboard input (e.g., increase size with the Up arrow and decrease with the Down arrow).
-   - **Instructions**:
-     ```csharp
-     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-     {
-         if (keyData == Keys.Up)
-         {
-             Rectangle.Width += 10;
-             Rectangle.Height += 10;
-         }
-         else if (keyData == Keys.Down)
-         {
-             Rectangle.Width -= 10;
-             Rectangle.Height -= 10;
-         }
-         return base.ProcessCmdKey(ref msg, keyData);
-     }
-     ```
-
-### Conclusion
-These exercises will help you explore the flexibility of the Animation C# project and deepen your understanding of graphics programming in C#. Feel free to experiment with different values and see how they affect the animation!
 
 ---
 
-## Related Projects
+# Related Projects
 
 This project serves as a direct port of the original Animation project created in VB.NET, which you can also explore for a different perspective on the same concepts. For more information and to access the complete code, visit the [Animation Repository](https://github.com/JoeLumbley/Animation) and the [Animation C# Repository](https://github.com/JoeLumbley/Animation-CS). Happy coding!
 
@@ -600,9 +657,22 @@ This project serves as a direct port of the original Animation project created i
 
 
 
+---
 
 
 
+
+
+# License Information
+
+```plaintext
+MIT License
+Copyright (c) 2025 Joseph W. Lumbley
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction...
+```
 
 
 
