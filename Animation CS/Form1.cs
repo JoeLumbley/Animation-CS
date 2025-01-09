@@ -147,19 +147,20 @@ namespace Animation_CS
                 // Set the current frame's time to the current system time.
                 CurrentFrame = DateTime.Now;
 
-                // Calculates the elapsed time ( delta time Δt ) between the current frame
-                // and the last frame.
+                // Calculates the elapsed time ( delta time Δt ) between the
+                // current frame and the last frame.
                 ElapsedTime = CurrentFrame - LastFrame;
 
-                // Updates the last frame's time to the current frame's time for use in
-                // the next update.
+                // Updates the last frame's time to the current frame's time for
+                // use in the next update.
                 LastFrame = CurrentFrame;
 
             }
 
         }
 
-        private DeltaTimeStructure DeltaTime = new(DateTime.Now, DateTime.Now, TimeSpan.Zero);
+        private DeltaTimeStructure DeltaTime = new(DateTime.Now, DateTime.Now,
+                                                   TimeSpan.Zero);
 
         private struct DisplayStructure
         {
