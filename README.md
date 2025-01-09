@@ -350,10 +350,10 @@ private void AllocateBuffer()
         Buffer = Context.Allocate(CreateGraphics(), ClientRectangle);
 
         Buffer.Graphics.CompositingMode =
-                 System.Drawing.Drawing2D.CompositingMode.SourceOver;
+  System.Drawing.Drawing2D.CompositingMode.SourceOver;
 
         Buffer.Graphics.TextRenderingHint =
-                        System.Drawing.Text.TextRenderingHint.AntiAlias;
+       System.Drawing.Text.TextRenderingHint.AntiAlias;
     }
 }
 ```
