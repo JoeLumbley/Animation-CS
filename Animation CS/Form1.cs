@@ -134,7 +134,8 @@ namespace Animation_CS
             public DateTime LastFrame;
             public TimeSpan ElapsedTime;
 
-            public DeltaTimeStructure(DateTime currentFrame, DateTime lastFrame, TimeSpan elapsedTime)
+            public DeltaTimeStructure(DateTime currentFrame, DateTime lastFrame,
+                                      TimeSpan elapsedTime)
             {
                 CurrentFrame = currentFrame;
                 LastFrame = lastFrame;
