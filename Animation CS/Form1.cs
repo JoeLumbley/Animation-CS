@@ -201,7 +201,8 @@ namespace Animation_CS
             }
         }
 
-        private FrameCounterStructure FrameCounter = new(0, DateTime.Now, TimeSpan.Zero, 0);
+        private FrameCounterStructure FrameCounter = new(0, DateTime.Now,
+                                                         TimeSpan.Zero, 0);
 
         private void Form1_Load(object sender, EventArgs e)
         {
