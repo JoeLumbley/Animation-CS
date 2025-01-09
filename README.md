@@ -73,7 +73,8 @@ public struct RectangleDouble
     public double X, Y, Width, Height, Velocity;
     public Brush Brush;
 
-    public RectangleDouble(double x, double y, double width, double height, double velocity, Brush brush)
+    public RectangleDouble(double x, double y, double width, double height,
+                           double velocity, Brush brush)
     {
         X = x;
         Y = y;
@@ -152,11 +153,7 @@ This method centers the rectangle vertically in the client area of the form.
 ### Rectangle Instance
 
 ```csharp
-private RectangleDouble Rectangle = new(0.0f,
-                                        0.0f,
-                                        256.0f,
-                                        256.0f,
-                                        32.0f,
+private RectangleDouble Rectangle = new(0.0f, 0.0f, 256.0f, 256.0f, 32.0f,
                                         new SolidBrush(Color.Chartreuse));
 ```
 
