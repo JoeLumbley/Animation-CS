@@ -130,7 +130,8 @@ This method checks if the rectangle has exited the right side of the client area
 #### MoveRightAndWraparound
 
 ```csharp
-public void MoveRightAndWraparound(Rectangle clientRectangle, TimeSpan deltaTime)
+public void MoveRightAndWraparound(Rectangle clientRectangle,
+                                   TimeSpan deltaTime)
 {
     MoveRight(deltaTime);
     Wraparound(clientRectangle);
