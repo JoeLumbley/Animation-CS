@@ -263,7 +263,8 @@ namespace Animation_CS
         {
             DeltaTime.Update();
 
-            Rectangle.MoveRightAndWraparound(ClientRectangle,DeltaTime.ElapsedTime);
+            Rectangle.MoveRightAndWraparound(ClientRectangle, 
+                                             DeltaTime.ElapsedTime);
 
         }
 
