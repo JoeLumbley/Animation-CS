@@ -70,19 +70,33 @@ namespace Animation_CS
             // the nearest integer values.
             public readonly int GetNearestX()
             {
-                return (int)Math.Round(X);
+                //return (int)Math.Round(X);
+                return RoundToNearest(X);
+
             }
             public readonly int GetNearestY()
             {
-                return (int)Math.Round(Y);
+                //return (int)Math.Round(Y);
+                return RoundToNearest(Y);
+
             }
             public readonly int GetNearestWidth()
             {
-                return (int)Math.Round(Width);
+                //return (int)Math.Round(Width);
+                return RoundToNearest(Width);
+
             }
             public readonly int GetNearestHeight()
             {
-                return (int)Math.Round(Height);
+                //return (int)Math.Round(Height);
+
+                return RoundToNearest(Height);
+            }
+
+            // Generic method to round attributes to the nearest integer values.
+            private readonly int RoundToNearest(double value)
+            {
+                return (int)Math.Round(value);
             }
 
             public void MoveRight(TimeSpan deltaTime)
@@ -303,7 +317,6 @@ namespace Animation_CS
               System.Drawing.Text.TextRenderingHint.AntiAlias;
 
                 Buffer?.Graphics.Clear(BackgroundColor);
-
 
             }
 
