@@ -70,26 +70,18 @@ namespace Animation_CS
             // the nearest integer values.
             public readonly int GetNearestX()
             {
-                //return (int)Math.Round(X);
                 return RoundToNearest(X);
-
             }
             public readonly int GetNearestY()
             {
-                //return (int)Math.Round(Y);
                 return RoundToNearest(Y);
-
             }
             public readonly int GetNearestWidth()
             {
-                //return (int)Math.Round(Width);
                 return RoundToNearest(Width);
-
             }
             public readonly int GetNearestHeight()
             {
-                //return (int)Math.Round(Height);
-
                 return RoundToNearest(Height);
             }
 
