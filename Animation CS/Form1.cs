@@ -268,9 +268,9 @@ namespace Animation_CS
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-                UpdateFrame();
+            UpdateFrame();
 
-                Invalidate(); // Calls OnPaint
+            Invalidate(); // Calls OnPaint
 
         }
 

@@ -34,7 +34,7 @@
             // 
             // Timer1
             // 
-            Timer1.Tick += timer1_Tick;
+            Timer1.Tick += Timer1_Tick;
             // 
             // Form1
             // 
