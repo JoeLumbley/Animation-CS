@@ -409,36 +409,6 @@ namespace Animation_CS
 
         }
 
-        //private void UpdateFrameCounter()
-        //{
-        //    FrameCounter.TimeElapsed = DateTime.Now - FrameCounter.StartTime;
-
-        //    //FrameCounter.SecondsElapsed = FrameCounter.TimeElapsed.TotalSeconds;
-
-        //    if (FrameCounter.TimeElapsed.TotalSeconds < 1)
-        //    {
-        //        FrameCounter.FrameCount += 1;
-        //    }
-        //    else
-        //    {
-        //        //FpsDisplay.Text = $"{FrameCounter.FrameCount}{FpsIdentifier}";
-
-        //        FrameCounter.FrameCount = 0;
-
-        //        FrameCounter.StartTime = DateTime.Now;
-
-        //    }
-
-        //}
-
-        //private void ResizeFPS()
-        //{
-        //    // Place the FPS display at the bottom of the client area.
-        //    FpsDisplay.Location = new Point(FpsDisplay.Location.X,
-        //                                    ClientRectangle.Bottom - 75);
-
-        //}
-
         public Form1()
         {
             InitializeComponent();
@@ -448,7 +418,7 @@ namespace Animation_CS
             // Set context to the context of this app.
             Context = BufferedGraphicsManager.Current;
 
-            // Ensure that Screen.PrimaryScreen is not null.
+            // Ensure that PrimaryScreen is not null.
             if (Screen.PrimaryScreen != null)
             {
                 // Set buffer size to the primary working area size.
