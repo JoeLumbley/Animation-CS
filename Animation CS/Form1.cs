@@ -46,8 +46,6 @@ namespace Animation_CS
 
         private Color BackgroundColor = Color.Black;
 
-        private readonly String FpsIdentifier = new(" FPS");
-
         // The RectangleDouble structure represents a rectangle with
         // double-precision coordinates and dimensions.
         public struct RectangleDouble
@@ -183,6 +181,15 @@ namespace Animation_CS
                 Font = font;
                 Brush = brush;
             }
+
+            public void MoveToPosition(Rectangle clientRectangle)
+            {
+                // Place the FPS display at the bottom of the client area.
+                Location = new Point(Location.X,
+                                                clientRectangle.Bottom - 75);
+
+            }
+
         }
 
         private DisplayStructure FpsDisplay = new(new Point(0, 0),
@@ -195,20 +202,41 @@ namespace Animation_CS
             public int FrameCount;
             public DateTime StartTime;
             public TimeSpan TimeElapsed;
-            public double SecondsElapsed;
+            public String FPS;
 
             public FrameCounterStructure(int frameCount, DateTime startTime,
-                                   TimeSpan timeElapsed, double secondsElapsed)
+                                   TimeSpan timeElapsed)
             {
                 FrameCount = frameCount;
                 StartTime = startTime;
                 TimeElapsed = timeElapsed;
-                SecondsElapsed = secondsElapsed;
+                FPS = "--";
             }
+
+            public void Update()
+            {
+                TimeSpan timeElapsed = DateTime.Now.Subtract(StartTime);
+
+                if (timeElapsed.TotalSeconds < 1)
+                {
+                    FrameCount += 1;
+                }
+                else
+                {
+                    FPS = $"{FrameCount} FPS";
+
+                    FrameCount = 0;
+
+                    StartTime = DateTime.Now;
+
+                }
+
+            }
+
         }
 
         private FrameCounterStructure FrameCounter = new(0, DateTime.Now,
-                                                         TimeSpan.Zero, 0);
+                                                         TimeSpan.Zero);
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -222,11 +250,17 @@ namespace Animation_CS
         {
             if (WindowState != FormWindowState.Minimized)
             {
-                ResizeFPS();
+                FpsDisplay.MoveToPosition(ClientRectangle);
 
                 Rectangle.CenterVertically(ClientRectangle);
 
                 DisposeBuffer();
+
+                Timer1.Enabled = true;
+            }
+            else
+            {
+                Timer1.Enabled = false;
 
             }
 
@@ -234,13 +268,9 @@ namespace Animation_CS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (WindowState != FormWindowState.Minimized)
-            {
                 UpdateFrame();
 
                 Invalidate(); // Calls OnPaint
-
-            }
 
         }
 
@@ -253,7 +283,7 @@ namespace Animation_CS
             // Show buffer on form.
             Buffer?.Render(e.Graphics);
 
-            UpdateFrameCounter();
+            FrameCounter.Update();
 
             EraseFrame();
 
@@ -273,6 +303,8 @@ namespace Animation_CS
 
             Rectangle.MoveRightAndWraparound(ClientRectangle, 
                                              DeltaTime.ElapsedTime);
+
+            FpsDisplay.Text = FrameCounter.FPS.ToString();
 
         }
 
@@ -308,7 +340,7 @@ namespace Animation_CS
                 Buffer.Graphics.TextRenderingHint = 
               System.Drawing.Text.TextRenderingHint.AntiAlias;
 
-                Buffer?.Graphics.Clear(BackgroundColor);
+                EraseFrame();
 
             }
 
@@ -316,6 +348,7 @@ namespace Animation_CS
 
         private void DrawFrame()
         {
+            // Draw rectangle.
             Buffer?.Graphics.FillRectangle(Rectangle.Brush,
                                            Rectangle.GetNearestX(), 
                                            Rectangle.GetNearestY(), 
@@ -376,35 +409,35 @@ namespace Animation_CS
 
         }
 
-        private void UpdateFrameCounter()
-        {
-            FrameCounter.TimeElapsed = DateTime.Now - FrameCounter.StartTime;
+        //private void UpdateFrameCounter()
+        //{
+        //    FrameCounter.TimeElapsed = DateTime.Now - FrameCounter.StartTime;
 
-            FrameCounter.SecondsElapsed = FrameCounter.TimeElapsed.TotalSeconds;
+        //    //FrameCounter.SecondsElapsed = FrameCounter.TimeElapsed.TotalSeconds;
 
-            if (FrameCounter.SecondsElapsed < 1)
-            {
-                FrameCounter.FrameCount += 1;
-            }
-            else
-            {
-                FpsDisplay.Text = $"{FrameCounter.FrameCount}{FpsIdentifier}";
+        //    if (FrameCounter.TimeElapsed.TotalSeconds < 1)
+        //    {
+        //        FrameCounter.FrameCount += 1;
+        //    }
+        //    else
+        //    {
+        //        //FpsDisplay.Text = $"{FrameCounter.FrameCount}{FpsIdentifier}";
 
-                FrameCounter.FrameCount = 0;
+        //        FrameCounter.FrameCount = 0;
 
-                FrameCounter.StartTime = DateTime.Now;
+        //        FrameCounter.StartTime = DateTime.Now;
 
-            }
+        //    }
 
-        }
+        //}
 
-        private void ResizeFPS()
-        {
-            // Place the FPS display at the bottom of the client area.
-            FpsDisplay.Location = new Point(FpsDisplay.Location.X,
-                                            ClientRectangle.Bottom - 75);
+        //private void ResizeFPS()
+        //{
+        //    // Place the FPS display at the bottom of the client area.
+        //    FpsDisplay.Location = new Point(FpsDisplay.Location.X,
+        //                                    ClientRectangle.Bottom - 75);
 
-        }
+        //}
 
         public Form1()
         {
