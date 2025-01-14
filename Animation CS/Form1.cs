@@ -184,15 +184,10 @@ namespace Animation_CS
 
             public void MoveToPosition(Rectangle clientRectangle)
             {
-                //// Place the FPS display at the bottom of the client area.
-                //Location = new Point(Location.X,
-                //                                clientRectangle.Bottom - 75);
-
 
                 // Place the FPS display at the bottom of the client area.
                 Location.X = Location.X;
                 Location.Y = clientRectangle.Bottom - 75;
-
 
             }
 
