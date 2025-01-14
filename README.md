@@ -3,7 +3,7 @@ This project showcases the fundamentals of creating smooth animations. The appli
 
 
 
-![011](https://github.com/user-attachments/assets/98898424-0885-4a80-9638-46ac8619f0da)
+![014](https://github.com/user-attachments/assets/3926a58b-0338-476d-934d-0e327cafddd3)
 
 
 
@@ -593,8 +593,8 @@ This project serves as a direct port of the original Animation project created i
 
 
 
-![013](https://github.com/user-attachments/assets/1cc2d4cb-5f2f-4db0-8b6d-da372ff2fa45)
 
+![015](https://github.com/user-attachments/assets/73243b32-0f41-40a5-b7f8-7a8236474d88)
 
 
 
