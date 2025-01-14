@@ -218,7 +218,7 @@ private struct FrameCounterStructure
 public void Update()
 {
     TimeElapsed = DateTime.Now.Subtract(StartTime);
-    if (timeElapsed.TotalSeconds < 1)
+    if (TimeElapsed.TotalSeconds < 1)
     {
         FrameCount += 1;
     }
