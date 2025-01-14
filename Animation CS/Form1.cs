@@ -215,9 +215,9 @@ namespace Animation_CS
 
             public void Update()
             {
-                TimeSpan timeElapsed = DateTime.Now.Subtract(StartTime);
+                TimeElapsed = DateTime.Now.Subtract(StartTime);
 
-                if (timeElapsed.TotalSeconds < 1)
+                if (TimeElapsed.TotalSeconds < 1)
                 {
                     FrameCount += 1;
                 }
