@@ -204,12 +204,11 @@ namespace Animation_CS
             public TimeSpan TimeElapsed;
             public String FPS;
 
-            public FrameCounterStructure(int frameCount, DateTime startTime,
-                                   TimeSpan timeElapsed)
+            public FrameCounterStructure()
             {
-                FrameCount = frameCount;
-                StartTime = startTime;
-                TimeElapsed = timeElapsed;
+                FrameCount = 0;
+                StartTime = DateTime.Now;
+                TimeElapsed = TimeSpan.Zero;
                 FPS = "--";
             }
 
@@ -235,8 +234,7 @@ namespace Animation_CS
 
         }
 
-        private FrameCounterStructure FrameCounter = new(0, DateTime.Now,
-                                                         TimeSpan.Zero);
+        private FrameCounterStructure FrameCounter = new();
 
         private void Form1_Load(object sender, EventArgs e)
         {
