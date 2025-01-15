@@ -425,7 +425,8 @@ Here are some exercises to enhance your understanding of the Animation C# projec
    - **Task**: Modify the `RectangleBrush` variable to change the color of the rectangle.
    - **Instructions**:
      ```csharp
-     private readonly Brush RectangleBrush = new SolidBrush(Color.Red); // Change Color.Chartreuse to Color.Red
+     // Change Color.Chartreuse to Color.Red
+     private readonly Brush RectangleBrush = new SolidBrush(Color.Red);
      ```
 
 2. **Change the Rectangle's Size**
